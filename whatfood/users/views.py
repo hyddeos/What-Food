@@ -1,9 +1,17 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
+
+from django.views.decorators.csrf import csrf_exempt # Added
+import json # Added
+from django.http import JsonResponse # Added
+from django.http import HttpResponse # Added
+from rest_framework.response import Response # Added
+from rest_framework.authtoken.models import Token # Added
+from django.http import JsonResponse # Added 
 
 User = get_user_model()
 
@@ -46,3 +54,24 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+@csrf_exempt
+def loginUser(request):
+
+    if request.method == "POST": 
+        # Attempt to sign user in
+        request = json.loads(request.body.decode('utf-8'))
+        username = request['username']['username']
+        password = request['password']['password']
+
+        user = authenticate(username=username, password=password)
+        if user != None:
+            print("User is logged in:", user)
+            token = Token.objects.get(user=user)
+            data = token.key
+            return JsonResponse(data, safe=False)
+        else:
+            print("loggin failed")
+            return HttpResponse("-- Login - Failed --")
+
+    

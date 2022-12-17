@@ -1,8 +1,11 @@
 import React from 'react';
 
+export default function Home() {
 
-export default function App() {
     return (
-        <h1>TEST</h1>
-    );
-  }
+        <div>
+            <h1>TEST</h1>
+
+        </div>
+            );
+}

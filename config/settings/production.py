@@ -138,7 +138,7 @@ LOGGING = {
 # -------------------------------------------------------------------------------
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa F405
-    {"url": "https://whatfood.eshtropy.se", "description": "Production server"}
+    {"url": "https://api.eshtropy.se", "description": "Production server"}
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------
