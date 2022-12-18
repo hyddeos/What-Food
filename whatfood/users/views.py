@@ -12,6 +12,7 @@ from django.http import HttpResponse # Added
 from rest_framework.response import Response # Added
 from rest_framework.authtoken.models import Token # Added
 from django.http import JsonResponse # Added 
+from rest_framework import status # Added
 
 User = get_user_model()
 
@@ -68,10 +69,17 @@ def loginUser(request):
         if user != None:
             print("User is logged in:", user)
             token = Token.objects.get(user=user)
-            data = token.key
-            return JsonResponse(data, safe=False)
+            data = {
+                "status": 202,
+                "token": token.key,
+                "username": username,                
+            }
+            return JsonResponse(data)
         else:
             print("loggin failed")
-            return HttpResponse("-- Login - Failed --")
+            data = {
+                "status": 400,  
+            }
+            return JsonResponse(data)
 
     
