@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { useNavigate } from "react-router-dom";
+import Headertext from '../components/Headertext';
 
+
+const baseURL = "http://127.0.0.1:8000/users/";
 
 export default function Home(props) {
 
@@ -13,11 +16,19 @@ export default function Home(props) {
     }
     },[props.LoggedIn]);
 
+    async function getData() {
+      try {
+
+
 
         
     return (
         <div>
-            <h1>Welcome {props.username}</h1>
+          <Headertext />
+          <div>
+            <p>Hi <strong className='capitalize font-bold'>{props.username}</strong> of the </p>
+          </div>
+            
 
         </div>
      );

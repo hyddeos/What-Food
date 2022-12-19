@@ -20,7 +20,7 @@ function App() {
           <Routes>
               <Route path="/login" element={<Login setUsername={setUsername} loggedIn={loggedIn} setLoggedIn={setLoggedIn} setToken={setToken} />} />
               <Route path="/" element={<Home loggedIn={loggedIn}  username={username} />} />
-              <Route path="/home" element={<Home Home loggedIn={loggedIn}  username={username} token={token}/>} /> 
+              <Route path="/home" element={<Home Home loggedIn={loggedIn} username={username} token={token}/>} /> 
           </Routes>
       </div>
     </BrowserRouter>
