@@ -3,6 +3,8 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import Headertext from '../components/Headertext';
 import axios from "axios";
+import Button from '../components/Button';
+import ChoiceDiv from '../components/ChoiceDiv';
 
 
 export default function Home(props) {
@@ -52,9 +54,28 @@ async function getData() {
         <div>
           <Headertext />
           <div>
-            <p>Hi <strong className='capitalize font-bold'>{username}</strong> of the <strong className='capitalize font-bold'>{family}</strong></p>
+            <p className='text-center'>Hi <strong className='capitalize font-bold'>{username}</strong> of the <strong className='capitalize font-bold'>{family}</strong></p>
           </div>
-            
+          <div className='flex flex-wrap justify-center'>
+            <ChoiceDiv 
+              title="Choose Dishes"
+              text="Pick dishes to eat"
+              color="bg-prim-300"
+            />
+            <ChoiceDiv 
+              title="Preshop Check"
+              text="Check what you have at home"
+              color="bg-sec-300"
+            />
+            <ChoiceDiv 
+              title="Shopping List"
+              text="Manage the shopping list"
+              color="bg-prim-300"
+            />
+          </div>
+          <div className='flex justify-center my-2'>
+            <Button type="submit" text="Reset Lists" />
+          </div>
 
         </div>
      );
