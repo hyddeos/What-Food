@@ -3,6 +3,8 @@ from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from django.db import models # Added
+
 
 class User(AbstractUser):
     """
@@ -16,6 +18,11 @@ class User(AbstractUser):
     first_name = None  # type: ignore
     last_name = None  # type: ignore
 
+
+    def get_family(self):
+        family = Family.objects.all()
+        return f'{Family.objects.get(member=self.pk).name}'
+
     def get_absolute_url(self):
         """Get url for user's detail view.
 
@@ -24,5 +31,29 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+
+class Family(models.Model):
+    name = models.CharField(max_length=32)
+    member = models.ManyToManyField(User, verbose_name=("Family Member"))
+
+    def __str__(self) -> str:
+        return f'{self.pk}, {self.name}'
+
+class Ingredients(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return f'{self.pk}, {self.name},'
+    
+
+class Dish(models.Model):
+    name =  models.CharField(max_length=78, verbose_name=("The Dish"))
+    creator = models.ForeignKey(Family, verbose_name=("Dish Owner"), on_delete=models.CASCADE)
+    ingredients = models.ManyToManyField(Ingredients)
+
+    def __str__(self) -> str:
+        return f'{self.pk}, {self.name},'
+
 
 

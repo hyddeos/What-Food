@@ -13,6 +13,7 @@ from rest_framework.response import Response # Added
 from rest_framework.authtoken.models import Token # Added
 from django.http import JsonResponse # Added 
 from rest_framework import status # Added
+from django.contrib.auth.decorators import login_required #Added
 
 User = get_user_model()
 
@@ -72,7 +73,7 @@ def loginUser(request):
             data = {
                 "status": 202,
                 "token": token.key,
-                "username": username,                
+                "username": username,              
             }
             return JsonResponse(data)
         else:
@@ -81,7 +82,13 @@ def loginUser(request):
                 "status": 400,  
             }
             return JsonResponse(data)
+            
+@login_required    
+def userdata(request,username):
+    data = {
+        "status": 202,
+        "token": "bjdfj",
+        "username": "username",              
+    }
 
-
-
-    
+    return JsonResponse(data)

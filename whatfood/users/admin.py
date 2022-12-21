@@ -5,9 +5,15 @@ from django.utils.translation import gettext_lazy as _
 
 from whatfood.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
+from whatfood.users.models import Family, Dish, Ingredients
+
 
 
 User = get_user_model()
+
+admin.site.register(Family)
+admin.site.register(Dish)
+admin.site.register(Ingredients)
 
 
 @admin.register(User)

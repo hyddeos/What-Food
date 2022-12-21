@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
-const baseURL = "http://127.0.0.1:8000/users/login/";
+// const baseURL = "http://127.0.0.1:8000/users/login/";
+const baseURL = "http://127.0.0.1:8000/auth-token/";
 
 
 export default function Login(props) {
@@ -24,30 +25,32 @@ export default function Login(props) {
     }
     },[props.loggedIn]);
 
+    // Try to Login
     async function tryLogin(e) {
         e.preventDefault();
         try {
           const response = await axios.post(baseURL, {
-            username: {username},
-            password: {password}
-          });
-            if (response.data.status === 202) {
+            username:username,
+            password:password
+          }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+          })
+          .then(response => {
+            if (response.data.token) {
                 setLoginMessage("Loggin Succesful, Loggin in...");
-                props.setUsername(response.data.username);
                 props.setToken(response.data.token);
                 props.setLoggedIn(true);
-                setResponse(202)
+                setResponse(200)
             }
-            else if (response.data.status === 400) {
+            else {
                 setLoginMessage("Wrong Username or Password, try again");
                 setPassword("");
                 setResponse(400)
             }
-            else {
-                setLoginMessage("Unknown error.. try reload the page");
-                setResponse(1)
-            }
-        
+          });        
         } catch (error) {
           console.error(error);
         }
@@ -100,7 +103,7 @@ export default function Login(props) {
                     <div>
                         <Button type="submit" text="Login" /> 
                     </div>
-                    {response === 202 ? 
+                    {response === 200 ? 
                         <p className='text-succes'>{loginMessage}</p>
                     :
                         <p className='text-error'>{loginMessage}</p>
