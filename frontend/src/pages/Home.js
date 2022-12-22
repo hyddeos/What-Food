@@ -72,7 +72,13 @@ export default function Home(props) {
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
           /> : "" }
-        {dishesView ? <DishesView username={username} dishes={dishes} /> : "" }
+        {dishesView ? 
+          <DishesView
+            username={username} 
+            dishes={dishes} 
+            setDashboardView={setDashboardView}
+            setDishesView={setDishesView}
+          /> : "" }
       </div>
     );
 }

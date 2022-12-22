@@ -1,22 +1,25 @@
 
-export default function Button(props) {
+export default function BackButton(props) {
 
-    
+function changeView(){
+    props.loadThisView(false);
+    props.loadDashboard(true);
+}  
 
 return (
-    <button className="
+    <button onClick={changeView} className="
         inline-block
         m-3 
         px-7
-        py-3
-        bg-prim-300
+        py-1
+        bg-sec-300
         font-bold
         text-lX
         leading-snug
         uppercase
         rounded
         shadow-md
-        hover:bg-prim-200 
+        hover:bg-sec-200 
         hover:shadow-lg
         focus:outline-none
         focus:ring-0
