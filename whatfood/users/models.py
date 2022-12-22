@@ -20,8 +20,12 @@ class User(AbstractUser):
 
 
     def get_family(self):
-        family = Family.objects.all()
         return f'{Family.objects.get(member=self.pk).name}'
+
+    def get_dishes(self):
+        fam = Family.objects.get(member=self.pk)
+        dishes = Dish.objects.filter(creator=fam).values()
+        return dishes
 
     def get_absolute_url(self):
         """Get url for user's detail view.
