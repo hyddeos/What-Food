@@ -59,5 +59,12 @@ class Dish(models.Model):
     def __str__(self) -> str:
         return f'{self.pk}, {self.name},'
 
+class Dishes_chosen:
+    dish = models.ForeignKey(Dish, verbose_name=("Dish chosen by User"), on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.dish},'
+
+
 
 

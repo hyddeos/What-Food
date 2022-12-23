@@ -30,9 +30,8 @@ return (
         relative
         ${props.color}
     `}> 
-        <h3 className="text-stroke text-center align-middle underline underline-offset-4">{props.title}</h3>
+        <h3 className="text-stroke text-center align-middle">{props.title}</h3>
         <p className="text-blue-100 capitalize text-center align-middle font-thin">{props.text}</p>
-        {props.dishes ? <h2>/{props.dishes.length}</h2>: "no" }
     </button>
 );
 }
