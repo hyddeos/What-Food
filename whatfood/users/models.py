@@ -27,6 +27,9 @@ class User(AbstractUser):
         dishes = Dish.objects.filter(creator=fam).values()
         return dishes
 
+    def get_dishes_chosen(self):
+        return Dishes_chosen.objects.all()
+
     def get_absolute_url(self):
         """Get url for user's detail view.
 
@@ -59,11 +62,9 @@ class Dish(models.Model):
     def __str__(self) -> str:
         return f'{self.pk}, {self.name},'
 
-class Dishes_chosen:
+class Dishes_chosen(models.Model):
     dish = models.ForeignKey(Dish, verbose_name=("Dish chosen by User"), on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return f'{self.dish},'
 
 
 
