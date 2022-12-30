@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model, authenticate, get_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
@@ -14,6 +14,8 @@ from rest_framework.authtoken.models import Token # Added
 from django.http import JsonResponse # Added 
 from rest_framework import status # Added
 from django.contrib.auth.decorators import login_required #Added
+
+from whatfood.users.models import Family
 
 User = get_user_model()
 
@@ -82,13 +84,21 @@ def loginUser(request):
                 "status": 400,  
             }
             return JsonResponse(data)
-            
-@login_required    
-def userdata(request,username):
+
+@csrf_exempt   
+def chosen_dishes(request):
+
+    
+    user = get_user(request)
+    print("user", user)
+
+    if request.method == "POST":
+        request = json.loads(request.body.decode('utf-8'))
+        dishes = request['dishes']
+        print("post req", request, dishes)
+
     data = {
-        "status": 202,
-        "token": "bjdfj",
-        "username": "username",              
+        "status": 202,           
     }
 
     return JsonResponse(data)

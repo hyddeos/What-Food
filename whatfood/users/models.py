@@ -18,17 +18,13 @@ class User(AbstractUser):
     first_name = None  # type: ignore
     last_name = None  # type: ignore
 
-
     def get_family(self):
         return f'{Family.objects.get(member=self.pk).name}'
 
     def get_dishes(self):
-        fam = Family.objects.get(member=self.pk)
-        dishes = Dish.objects.filter(creator=fam).values()
+        family = Family.objects.get(member=self.pk)
+        dishes = Dish.objects.filter(creator=family).values()
         return dishes
-
-    def get_dishes_chosen(self):
-        return Dishes_chosen.objects.all()
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -63,7 +59,15 @@ class Dish(models.Model):
         return f'{self.pk}, {self.name},'
 
 class Dishes_chosen(models.Model):
-    dish = models.ForeignKey(Dish, verbose_name=("Dish chosen by User"), on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
+    dishes_chosen = models.ManyToManyField(Dish, verbose_name=("Dishes To Shop"))
+
+class Checklist(models.Model):
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
+    checklist = models.ManyToManyField(Dishes_chosen)
+
+
+
 
 
 

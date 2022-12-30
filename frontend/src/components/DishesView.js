@@ -1,16 +1,35 @@
 import React from 'react';
 
+import axios from "axios";
+
 import Button from '../components/Button';
 import BackButton from './BackButton';
 
-export default function DishesView(props) {
+const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
 
+export default function DishesView(props) {
+    
     const [selected, setSelected] = React.useState([])
     
-    function SaveDishes() {
-        console.log("too python");
-        const hej = "hej"
-    }
+    async function SaveDishes() {
+        console.log("Save...")
+        try {
+            const response = await axios.post(baseURL, {
+            dishes:selected,
+            token:props.token
+            }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log("Response", response)
+            });        
+        } catch (error) {
+            console.error(error);
+        }
+    }  
 
     function DishClick(id) {
         // Remove IF already added
@@ -54,7 +73,8 @@ export default function DishesView(props) {
                 {MyDishes()}
             </div>
             <h4 className='text-center'>You have selected <span className='font-bold'>{selected.length}</span> dishes.</h4>
-            <div className='justify-center m-auto'>                
+            <div className='justify-center m-auto'>
+                <button onClick={SaveDishes}> test</button>              
                 <Button onClick={SaveDishes} text="Save" />              
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setDishesView} />
             </div>

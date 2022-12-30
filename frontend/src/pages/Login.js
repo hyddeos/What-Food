@@ -4,9 +4,9 @@ import Headertext from '../components/Headertext';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 
-// const baseURL = "http://127.0.0.1:8000/users/login/";
 const baseURL = "http://127.0.0.1:8000/auth-token/";
 
 
@@ -17,10 +17,11 @@ export default function Login(props) {
     const [response, setResponse] = React.useState(0);
     const [loginMessage, setLoginMessage] = React.useState("");
 
+    console.log("login, token:", props.token, "loggedin?", props.loggedIn)
     // Redirect if allready logged in
     let navigate = useNavigate();
     React.useEffect(() => {
-    if (props.loggedIn){
+    if (props.token){
     return navigate("/home");
     }
     },[props.loggedIn]);
@@ -41,7 +42,8 @@ export default function Login(props) {
           .then(response => {
             if (response.data.token) {
                 setLoginMessage("Loggin Succesful, Loggin in...");
-                props.setToken(response.data.token);
+                const jwt = response.data.token;
+                Cookies.set('token', jwt, { expires: 7 });
                 props.setLoggedIn(true);
                 setResponse(200)
             }
