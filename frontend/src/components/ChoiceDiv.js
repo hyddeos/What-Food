@@ -6,6 +6,7 @@ function changeView(){
     props.loadDashboard(false)
 }
 
+
 return (
     <button onClick={changeView} className={`
         flex flex-col justify-center items-center
@@ -32,6 +33,7 @@ return (
     `}> 
         <h3 className="text-stroke text-center align-middle">{props.title}</h3>
         <p className="text-blue-100 capitalize text-center align-middle font-thin">{props.text}</p>
+        <h4 className="text-stroke">{props.chosenDishesCount}/{props.dishesCount}</h4>
     </button>
 );
 }

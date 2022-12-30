@@ -24,7 +24,13 @@ class User(AbstractUser):
     def get_dishes(self):
         family = Family.objects.get(member=self.pk)
         dishes = Dish.objects.filter(creator=family).values()
+        print("dishes", dishes)
         return dishes
+
+    def get_chosen_dishes(self):
+        family = Family.objects.get(member=self.pk)
+        chosen_dishes = Dishes_chosen.objects.filter(family=family)
+        return chosen_dishes[0].dishes_chosen.values()
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -63,7 +69,7 @@ class Dishes_chosen(models.Model):
     dishes_chosen = models.ManyToManyField(Dish, verbose_name=("Dishes To Shop"), blank=True)
 
     def __str__(self) -> str:
-        return f'{self.pk}'
+        return f'{self.pk}, {self.family} {self.dishes_chosen.all()}'
 
 
 class Checklist(models.Model):

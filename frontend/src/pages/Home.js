@@ -15,7 +15,8 @@ export default function Home(props) {
   // Varibles & Data
   const [username, setUsername] = React.useState("");
   const [family, setFamily] = React.useState("");
-  const [dishes, setDishes] = React.useState("");
+  const [dishes, setDishes] = React.useState([]);
+  const [chosenDishes, setChosenDishes] = React.useState([]);
   const [gotData, setGotData] = React.useState(false);
   // Views
   const [dashboardView, setDashboardView] = React.useState(false);
@@ -50,6 +51,7 @@ export default function Home(props) {
       setUsername(response.data[0].username);
       setFamily(response.data[0].get_family);
       setDishes(response.data[0].get_dishes);
+      setChosenDishes(response.data[0].get_chosen_dishes);
       console.log("Res", response.data)
     } catch (error) {
       // Handle the error
@@ -67,21 +69,29 @@ export default function Home(props) {
   return (
       <div>
         {dashboardView ? 
-          <Dashboard 
+          <Dashboard
+            //User & info props
             family={family} 
-            username={username} 
+            username={username}
+            //List props
             dishes={dishes}
+            chosenDishes={chosenDishes}
+            //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
           /> : "" }
         {dishesView ? 
           <DishesView
+            //User & info props
             token={props.token}
-            username={username} 
+            username={username}
+            //List props
             dishes={dishes}
+            chosenDishes={chosenDishes}
+            setChosenDishes={setChosenDishes}
+            //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
-
           /> : "" }
       </div>
     );

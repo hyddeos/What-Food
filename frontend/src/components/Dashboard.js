@@ -6,6 +6,9 @@ import Button from '../components/Button';
 
 export default function Dashboard(props) {
 
+let dishesCount = Object.keys(props.dishes).length
+let chosenDishesCount = Object.keys(props.chosenDishes).length
+
 return (
     <div>   
         <Headertext />
@@ -19,6 +22,8 @@ return (
                 color="bg-prim-300"
                 loadView={props.setDishesView}
                 loadDashboard={props.setDashboardView}
+                dishesCount={dishesCount}
+                chosenDishesCount={chosenDishesCount}
             />
             <ChoiceDiv 
                 title="Preshop Check"

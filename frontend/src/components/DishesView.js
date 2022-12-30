@@ -8,9 +8,11 @@ import BackButton from './BackButton';
 const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
 
 export default function DishesView(props) {
-    
+    console.log("already", props.chosenDishes)
+
     const [selected, setSelected] = React.useState([])
-    
+    const [loadedPrev, setLoadedPrev] = React.useState(false)
+
     async function SaveDishes() {
         try {
             const response = await axios.post(baseURL, {
@@ -20,16 +22,17 @@ export default function DishesView(props) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': 'Token ' + props.token,
+                'Authorization': 'Token' + props.token,
                 },
             })
             .then(response => {
+                props.setChosenDishes(selected);
                 console.log("Response", response)
-            });        
+            });
         } catch (error) {
             console.error(error);
         }
-    }  
+    }
 
     function DishClick(id) {
         // Remove IF already added
@@ -42,11 +45,22 @@ export default function DishesView(props) {
             setSelected([...selected, id]);
         }
     }
-
+    
     function MyDishes() {
+        // First time load already chosen dishes
+        if (!loadedPrev) {
+            let temp = []
+            props.chosenDishes.map((dish) => (
+                temp = [...temp, dish.id]
+            ));
+            setSelected(temp)
+            setLoadedPrev(true);
+        }
+        console.log("selected", selected)
+        // Render all dishes
         return (
         <ul className=''>
-            {props.dishes.map((dish) => (
+            {props.dishes.map((dish) => ( 
             <li className='font-semibold cursor-pointer m-1 flex hover:bg-blue-50' 
                 onClick={() => DishClick(dish.id)} key={dish.id}>
                 {selected.includes(dish.id) ?
@@ -64,6 +78,7 @@ export default function DishesView(props) {
         </ul>
         );
     }
+    
 
     return (
         <div className='m-1 inline-block w-full text-center'>   
