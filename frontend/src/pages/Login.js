@@ -17,7 +17,6 @@ export default function Login(props) {
     const [response, setResponse] = React.useState(0);
     const [loginMessage, setLoginMessage] = React.useState("");
 
-    console.log("login, token:", props.token, "loggedin?", props.loggedIn)
     // Redirect if allready logged in
     let navigate = useNavigate();
     React.useEffect(() => {

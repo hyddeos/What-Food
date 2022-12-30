@@ -15,7 +15,7 @@ from django.http import JsonResponse # Added
 from rest_framework import status # Added
 from django.contrib.auth.decorators import login_required #Added
 
-from whatfood.users.models import Family
+from whatfood.users.models import Family, Dishes_chosen, User as CurrentUser
 
 User = get_user_model()
 
@@ -45,7 +45,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self):
         return self.request.user
 
-
 user_update_view = UserUpdateView.as_view()
 
 
@@ -61,8 +60,9 @@ user_redirect_view = UserRedirectView.as_view()
 
 @csrf_exempt
 def loginUser(request):
+    """Log in the user"""
 
-    if request.method == "POST": 
+    if request.method == "POST":
         # Attempt to sign user in
         request = json.loads(request.body.decode('utf-8'))
         username = request['username']['username']
@@ -75,30 +75,46 @@ def loginUser(request):
             data = {
                 "status": 202,
                 "token": token.key,
-                "username": username,              
+                "username": username,          
             }
             return JsonResponse(data)
         else:
             print("loggin failed")
             data = {
-                "status": 400,  
+                "status": 400,
             }
             return JsonResponse(data)
 
-@csrf_exempt   
+@csrf_exempt
 def chosen_dishes(request):
-
-    
-    user = get_user(request)
-    print("user", user)
+    """Save dishes that the user wants to eat"""
 
     if request.method == "POST":
         request = json.loads(request.body.decode('utf-8'))
         dishes = request['dishes']
-        print("post req", request, dishes)
+        token = request['token']
+        # Get the user from the token
+        user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
+        # Get the users Family
+        family = Family.objects.get(member=user.pk)
+        current_dishes = Dishes_chosen.objects.get(family=family)
+        # Update with the new list
+        current_dishes.dishes_chosen.set(dishes)
+        current_dishes.save()
 
-    data = {
-        "status": 202,           
-    }
+        """ LATER ADD THAT Dishes_chosen automaticly gets an input
+            when family is created
+        """
 
-    return JsonResponse(data)
+        data = {
+            "status": 200,           
+        }
+        return JsonResponse(data)
+    else:
+        # ERROR for some reason
+        data = {
+            "status": 400,           
+        }
+        return JsonResponse(data)
+
+    

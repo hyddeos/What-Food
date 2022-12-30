@@ -28,7 +28,7 @@ function App() {
       <div className=''>
           <Routes>
               <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token}  />} />
-              <Route path="/" element={<Home loggedIn={loggedIn}  setLoggedIn={setLoggedIn} token={token} />} />
+              <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token} />} />
               <Route path="/home" element={<Home Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} token={token}  />} /> 
           </Routes>
       </div>

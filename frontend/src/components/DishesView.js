@@ -12,7 +12,6 @@ export default function DishesView(props) {
     const [selected, setSelected] = React.useState([])
     
     async function SaveDishes() {
-        console.log("Save...")
         try {
             const response = await axios.post(baseURL, {
             dishes:selected,
@@ -21,6 +20,7 @@ export default function DishesView(props) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': 'Token ' + props.token,
                 },
             })
             .then(response => {
@@ -74,13 +74,9 @@ export default function DishesView(props) {
             </div>
             <h4 className='text-center'>You have selected <span className='font-bold'>{selected.length}</span> dishes.</h4>
             <div className='justify-center m-auto'>
-                <button onClick={SaveDishes}> test</button>              
-                <Button onClick={SaveDishes} text="Save" />              
+                <button onClick={SaveDishes}><Button text="Save" /> </button>             
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setDishesView} />
             </div>
-
-
-
         </div>
     );
 }

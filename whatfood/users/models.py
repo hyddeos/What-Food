@@ -60,7 +60,11 @@ class Dish(models.Model):
 
 class Dishes_chosen(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
-    dishes_chosen = models.ManyToManyField(Dish, verbose_name=("Dishes To Shop"))
+    dishes_chosen = models.ManyToManyField(Dish, verbose_name=("Dishes To Shop"), blank=True)
+
+    def __str__(self) -> str:
+        return f'{self.pk}'
+
 
 class Checklist(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)

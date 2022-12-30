@@ -23,7 +23,6 @@ export default function Home(props) {
   const [PreshopView, setPreshopView] = React.useState(false);
   const [shoppinView, setshoppingView] = React.useState(false);
  
-  console.log("Home, token:", props.token, "loggedin?", props.LoggedIn)
   // Redirect if NOT logged in
   let navigate = useNavigate();
   React.useEffect(() => {
@@ -32,7 +31,6 @@ export default function Home(props) {
   }
   else {
     props.setLoggedIn(true);
-    console.log("home, logged change to True");
   }
   },[props.loggedIn]);
 
@@ -78,10 +76,12 @@ export default function Home(props) {
           /> : "" }
         {dishesView ? 
           <DishesView
+            token={props.token}
             username={username} 
             dishes={dishes}
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
+
           /> : "" }
       </div>
     );
