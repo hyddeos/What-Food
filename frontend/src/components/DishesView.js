@@ -8,7 +8,6 @@ import BackButton from './BackButton';
 const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
 
 export default function DishesView(props) {
-    console.log("already", props.chosenDishes)
 
     const [selected, setSelected] = React.useState([])
     const [loadedPrev, setLoadedPrev] = React.useState(false)
@@ -26,12 +25,24 @@ export default function DishesView(props) {
                 },
             })
             .then(response => {
-                props.setChosenDishes(selected);
-                console.log("Response", response)
+                // Set the chosen dishes 
+                UpdateChosenDishes();
             });
         } catch (error) {
             console.error(error);
         }
+    }
+
+    function UpdateChosenDishes(){
+        // Update the choosen dishes at the clientside. The POST request is already saved
+        // For jumping in and out of components with out refreshing and making new Post-reqs
+        let temp = []
+        props.dishes.map((dish) => {
+            if (selected.includes(dish.id)) {
+                temp = [...temp, dish];
+            }
+        });
+        props.setChosenDishes(temp);
     }
 
     function DishClick(id) {
@@ -47,7 +58,7 @@ export default function DishesView(props) {
     }
     
     function MyDishes() {
-        // First time load already chosen dishes
+        // First time load already chosen dishes.
         if (!loadedPrev) {
             let temp = []
             props.chosenDishes.map((dish) => (
@@ -56,7 +67,6 @@ export default function DishesView(props) {
             setSelected(temp)
             setLoadedPrev(true);
         }
-        console.log("selected", selected)
         // Render all dishes
         return (
         <ul className=''>
