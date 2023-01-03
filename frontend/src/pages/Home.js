@@ -6,6 +6,7 @@ import axios from "axios";
 
 import Dashboard from '../components/Dashboard';
 import DishesView from '../components/DishesView';
+import PreshopView from '../components/PreshopView';
 
 
 export default function Home(props) {
@@ -21,7 +22,7 @@ export default function Home(props) {
   // Views
   const [dashboardView, setDashboardView] = React.useState(false);
   const [dishesView, setDishesView] = React.useState(false);
-  const [PreshopView, setPreshopView] = React.useState(false);
+  const [preshopView, setPreshopView] = React.useState(false);
   const [shoppinView, setshoppingView] = React.useState(false);
  
   // Redirect if NOT logged in
@@ -79,12 +80,12 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
+            setPreshopView={setPreshopView}
           /> : "" }
         {dishesView ? 
           <DishesView
             //User & info props
             token={props.token}
-            username={username}
             //List props
             dishes={dishes}
             chosenDishes={chosenDishes}
@@ -92,6 +93,16 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
+          /> : "" }
+        {preshopView ?
+          <PreshopView
+            //User & info props
+            token={props.token}
+            //List props
+
+            //View props
+            setDashboardView={setDashboardView}
+            setPreshopView={setPreshopView}
           /> : "" }
       </div>
     );

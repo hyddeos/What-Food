@@ -88,7 +88,6 @@ export default function DishesView(props) {
         </ul>
         );
     }
-    
 
     return (
         <div className='m-1 inline-block w-full text-center'>   
@@ -99,7 +98,28 @@ export default function DishesView(props) {
             </div>
             <h4 className='text-center'>You have selected <span className='font-bold'>{selected.length}</span> dishes.</h4>
             <div className='justify-center m-auto'>
-                <button onClick={SaveDishes}><Button text="Save" /> </button>             
+                <button onClick={SaveDishes} className="
+                    inline-block
+                    m-3 
+                    px-7
+                    py-3
+                    bg-prim-300
+                    font-bold
+                    text-lX
+                    leading-snug
+                    uppercase
+                    rounded
+                    shadow-md
+                    hover:bg-prim-200 
+                    hover:shadow-lg
+                    focus:outline-none
+                    focus:ring-0
+                    active:shadow-lg
+                    transition
+                    duration-300
+                    ease-in-out
+                    text-stroke" >
+                    Save</button>    
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setDishesView} />
             </div>
         </div>

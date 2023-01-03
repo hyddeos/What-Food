@@ -2,12 +2,15 @@ import React from 'react';
 import ChoiceDiv from '../components/ChoiceDiv';
 import Headertext from '../components/Headertext';
 import Button from '../components/Button';
+import PreshopView from './PreshopView';
 
 
 export default function Dashboard(props) {
 
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
+
+console.log("Dashboard props", props)
 
 return (
     <div>   
@@ -29,11 +32,15 @@ return (
                 title="Preshop Check"
                 text="Check what you have at home"
                 color="bg-sec-300"
+                loadView={props.setPreshopView}
+                loadDashboard={props.setDashboardView}
             />
             <ChoiceDiv 
                 title="Shopping List"
                 text="Manage the shopping list"
                 color="bg-prim-300"
+                loadView={props.setPreshopView}
+                loadDashboard={props.setDashboardView}
             />
         </div>
         <div className='flex justify-center'>
