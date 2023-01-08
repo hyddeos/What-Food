@@ -10,7 +10,6 @@ export default function Dashboard(props) {
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
 
-console.log("Dashboard props", props)
 
 return (
     <div>   
@@ -34,6 +33,8 @@ return (
                 color="bg-sec-300"
                 loadView={props.setPreshopView}
                 loadDashboard={props.setDashboardView}
+                dishes={props.dishes}
+                chosenDishes={props.chosenDishes}
             />
             <ChoiceDiv 
                 title="Shopping List"

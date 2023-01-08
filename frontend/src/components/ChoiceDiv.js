@@ -1,12 +1,9 @@
 export default function ChoiceDiv(props) {
 
-    console.log("view", props)
-
     function changeView(){
         props.loadView(true);
         props.loadDashboard(false)
     }
-
 
 return (
     <button onClick={changeView} className={`

@@ -23,14 +23,38 @@ class User(AbstractUser):
 
     def get_dishes(self):
         family = Family.objects.get(member=self.pk)
-        dishes = Dish.objects.filter(creator=family).values()
-        print("dishes", dishes)
+        family_dishes = Dish.objects.filter(creator=family)
+        dishes = []
+        for dish in family_dishes:
+            dishes.append({
+                "id": dish.pk, 
+                "name": dish.name,
+                "ingredients": dish.ingredients.values()
+                })
         return dishes
 
     def get_chosen_dishes(self):
         family = Family.objects.get(member=self.pk)
         chosen_dishes = Dishes_chosen.objects.filter(family=family)
-        return chosen_dishes[0].dishes_chosen.values()
+        # Get the PK for all the chosen dishes
+        dishes_pk = []
+        for dish in chosen_dishes:
+            print("D!", dish.dishes_chosen.values('pk'))
+            dishes_pk.append(dish.dishes_chosen.values('pk'))
+        # Get the dishes and add the ingredients
+        dishes_with_ingredents = []
+        for dish in dishes_pk[0]:
+            temp_dish = Dish.objects.get(pk=dish['pk'])
+            dishes_with_ingredents.append({
+                "id": temp_dish.pk,
+                "name": temp_dish.name,
+                "ingredients": temp_dish.ingredients.values()
+            })      
+
+        return dishes_with_ingredents
+
+    def get_shoppinglist(self):
+        pass
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -62,19 +86,18 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(Ingredients)
 
     def __str__(self) -> str:
-        return f'{self.pk}, {self.name},'
+        return f'{self.pk}, {self.name}, {self.ingredients.values_list()}'
 
 class Dishes_chosen(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
     dishes_chosen = models.ManyToManyField(Dish, verbose_name=("Dishes To Shop"), blank=True)
 
     def __str__(self) -> str:
-        return f'{self.pk}, {self.family} {self.dishes_chosen.all()}'
+        return f'pk: {self.pk}, fam: {self.family} {self.dishes_chosen.all()}'
 
-
-class Checklist(models.Model):
+class Shoppinglist(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
-    checklist = models.ManyToManyField(Dishes_chosen)
+    ingredients = models.ManyToManyField(Ingredients)
 
 
 

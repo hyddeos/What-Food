@@ -24,7 +24,8 @@ export default function Home(props) {
   const [dishesView, setDishesView] = React.useState(false);
   const [preshopView, setPreshopView] = React.useState(false);
   const [shoppinView, setshoppingView] = React.useState(false);
- 
+  console.log("Dishes", dishes)
+  console.log("chosen Dishes", chosenDishes)
   // Redirect if NOT logged in
   let navigate = useNavigate();
   React.useEffect(() => {

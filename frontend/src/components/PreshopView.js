@@ -8,8 +8,6 @@ import BackButton from './BackButton';
 
 export default function PreshopView(props) {
 
-    console.log("inside Preshop", props)
-
     return (
         <div className='m-1 inline-block w-full text-center'>   
             <h2 className='font-bold'>Preshop</h2>
