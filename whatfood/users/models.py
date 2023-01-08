@@ -39,7 +39,6 @@ class User(AbstractUser):
         # Get the PK for all the chosen dishes
         dishes_pk = []
         for dish in chosen_dishes:
-            print("D!", dish.dishes_chosen.values('pk'))
             dishes_pk.append(dish.dishes_chosen.values('pk'))
         # Get the dishes and add the ingredients
         dishes_with_ingredents = []
@@ -48,13 +47,22 @@ class User(AbstractUser):
             dishes_with_ingredents.append({
                 "id": temp_dish.pk,
                 "name": temp_dish.name,
-                "ingredients": temp_dish.ingredients.values()
-            })      
-
+                "ingredients": temp_dish.ingredients.values(),
+            })
+        
         return dishes_with_ingredents
 
+
     def get_shoppinglist(self):
-        pass
+        family = Family.objects.get(member=self.pk)
+        shoppinglist = Shoppinglist.objects.get(family=family)        
+        shoppinglists = {
+            "id": shoppinglist.pk,
+            "ingredients": shoppinglist.ingredients.values(),
+            "ingredients_added": shoppinglist.ingredients_added.values()
+        }
+        return shoppinglists
+        
 
     def get_absolute_url(self):
         """Get url for user's detail view.
@@ -95,9 +103,14 @@ class Dishes_chosen(models.Model):
     def __str__(self) -> str:
         return f'pk: {self.pk}, fam: {self.family} {self.dishes_chosen.all()}'
 
+
 class Shoppinglist(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
-    ingredients = models.ManyToManyField(Ingredients)
+    ingredients = models.ManyToManyField(Ingredients, verbose_name=("Items on List"), blank=True)
+    ingredients_added = models.ManyToManyField(Ingredients, verbose_name=("Items added"), related_name=("Basket"), blank=True)
+
+    def __str__(self) -> str:
+        return f'pk: {self.pk}, fam: {self.family}'
 
 
 

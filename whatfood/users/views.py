@@ -15,7 +15,7 @@ from django.http import JsonResponse # Added
 from rest_framework import status # Added
 from django.contrib.auth.decorators import login_required #Added
 
-from whatfood.users.models import Family, Dishes_chosen, User as CurrentUser
+from whatfood.users.models import Family, Dishes_chosen, Shoppinglist, User as CurrentUser
 
 User = get_user_model()
 
@@ -105,6 +105,34 @@ def chosen_dishes(request):
         """ LATER ADD THAT Dishes_chosen automaticly gets an input
             when family is created
         """
+
+        data = {
+            "status": 200,           
+        }
+        return JsonResponse(data)
+    else:
+        # ERROR for some reason
+        data = {
+            "status": 400,           
+        }
+        return JsonResponse(data)
+
+@csrf_exempt
+def update_shoppinglist(request):
+    """Update the items on the shopping list"""
+
+    if request.method == "POST":
+        request = json.loads(request.body.decode('utf-8'))
+        ingredients = request['ingredients']
+        token = request['token']
+        # Get the user from the token
+        user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
+        # Get the users Family
+        family = Family.objects.get(member=user.pk)
+        current_shoppinglist = Shoppinglist.objects.get(family=family)
+        # Update with the new list
+        current_shoppinglist.ingredients.set(ingredients)
+        current_shoppinglist.save()
 
         data = {
             "status": 200,           

@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = User
-        fields = ["username", "get_family", "get_dishes", "get_chosen_dishes"]
+        fields = ["username", "get_family", "get_dishes", "get_chosen_dishes", "get_shoppinglist"]
 
 
         extra_kwargs = {

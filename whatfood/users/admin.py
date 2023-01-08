@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from whatfood.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
-from whatfood.users.models import Family, Dish, Ingredients, Dishes_chosen
+from whatfood.users.models import Family, Dish, Ingredients, Dishes_chosen, Shoppinglist
 
 
 
@@ -15,6 +15,7 @@ admin.site.register(Family)
 admin.site.register(Dish)
 admin.site.register(Ingredients)
 admin.site.register(Dishes_chosen)
+admin.site.register(Shoppinglist)
 
 
 

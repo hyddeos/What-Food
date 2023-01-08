@@ -19,13 +19,13 @@ export default function Home(props) {
   const [dishes, setDishes] = React.useState([]);
   const [chosenDishes, setChosenDishes] = React.useState([]);
   const [gotData, setGotData] = React.useState(false);
+  const [ingredientsAtHome, setIngredientsAtHome] = React.useState([]);
   // Views
   const [dashboardView, setDashboardView] = React.useState(false);
   const [dishesView, setDishesView] = React.useState(false);
   const [preshopView, setPreshopView] = React.useState(false);
   const [shoppinView, setshoppingView] = React.useState(false);
-  console.log("Dishes", dishes)
-  console.log("chosen Dishes", chosenDishes)
+
   // Redirect if NOT logged in
   let navigate = useNavigate();
   React.useEffect(() => {
@@ -100,7 +100,9 @@ export default function Home(props) {
             //User & info props
             token={props.token}
             //List props
-
+            chosenDishes={chosenDishes}
+            ingredientsAtHome={ingredientsAtHome}
+            setIngredientsAtHome={setIngredientsAtHome}
             //View props
             setDashboardView={setDashboardView}
             setPreshopView={setPreshopView}
