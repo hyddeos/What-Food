@@ -13,6 +13,7 @@ export default function PreshopView(props) {
     const [loadedPrev, setLoadedPrev] = React.useState(false)
 
     console.log("PROPS Preshop", props)
+    console.log("athome", props.ingredientsAtHome)
 
     async function SaveDishes() {
         // Invert list (Save items that user Dont have at home)
@@ -44,12 +45,16 @@ export default function PreshopView(props) {
     }
 
     function UpdateIngredients(){
-        // Update the choosen dishes at the clientside. The POST request is already saved
+        // Update the choosen ingredients at the clientside. The POST request is already saved
         // For jumping in and out of components with out refreshing and making new Post-reqs
         let temp = []
+        props.chosenDishes.map((dish) => (
+            dish.ingredients.map(ingredient => (
+                selected.includes(ingredient.id) ? temp.push(ingredient) : null
+                ))
+        ));
         props.setIngredientsAtHome(temp);
     }
-
 
     function ingredientsClick(id) {
         // Remove IF already added
@@ -66,13 +71,14 @@ export default function PreshopView(props) {
     function ingredientsList() {
         // First time load already chosen dishes.
         if (!loadedPrev) {
+            const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
             let temp = []
             props.chosenDishes.map((dish) => (
                 dish.ingredients.map(ingredient => (
-                    temp = [...temp, ingredient.id]
-                ))
+                    atHomeIds.includes(ingredient.id) ? temp.push(ingredient.id) : null
+                    ))
             ));
-            //setSelected(temp);
+            setSelected(temp);
             setLoadedPrev(true);
         }
         // Render all dishes

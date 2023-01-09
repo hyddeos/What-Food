@@ -62,7 +62,7 @@ class User(AbstractUser):
             "ingredients_added": shoppinglist.ingredients_added.values()
         }
         return shoppinglists
-        
+
 
     def get_absolute_url(self):
         """Get url for user's detail view.

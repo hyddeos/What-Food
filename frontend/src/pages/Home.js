@@ -54,19 +54,21 @@ export default function Home(props) {
       setFamily(response.data[0].get_family);
       setDishes(response.data[0].get_dishes);
       setChosenDishes(response.data[0].get_chosen_dishes);
+      setIngredientsAtHome(response.data[0].get_shoppinglist.ingredients);
       console.log("Res", response.data)
+      console.log("shoppinglistTest", response.data[0].get_shoppinglist);
     } catch (error) {
       // Handle the error
     }
   }
 
+ 
   // When logged in get the data(if not allready data is gathered)
   if (props.loggedIn && !gotData) {
     getData()
     setGotData(true)
     setDashboardView(true)
-  }
-    
+  }    
     
   return (
       <div>
