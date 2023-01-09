@@ -9,16 +9,18 @@ export default function Dashboard(props) {
 
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
+
 let ingredientCount = []
+let ingredientsAtHomeCount = []
+// Get the Count for the ingredientCount and ingredientsAtHomeCount,
+// Only get ingredients that is being used in dishes now
+const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
     props.chosenDishes.map((dish) => (
         dish.ingredients.map(ingredient => (
-            ingredientCount.push(ingredient)
+            ingredientCount.push(ingredient),
+            atHomeIds.includes(ingredient.id) ? ingredientsAtHomeCount.push(ingredient) : null
         ))
     ));
-
-
-
-
 
 return (
     <div>   
