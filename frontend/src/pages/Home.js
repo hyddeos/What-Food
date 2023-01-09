@@ -56,7 +56,6 @@ export default function Home(props) {
       setChosenDishes(response.data[0].get_chosen_dishes);
       setIngredientsAtHome(response.data[0].get_shoppinglist.ingredients);
       console.log("Res", response.data)
-      console.log("shoppinglistTest", response.data[0].get_shoppinglist);
     } catch (error) {
       // Handle the error
     }
@@ -80,11 +79,12 @@ export default function Home(props) {
             //List props
             dishes={dishes}
             chosenDishes={chosenDishes}
+            ingredientsAtHome={ingredientsAtHome}
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
             setPreshopView={setPreshopView}
-          /> : "" }
+          /> : null }
         {dishesView ? 
           <DishesView
             //User & info props
@@ -96,7 +96,7 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
-          /> : "" }
+          /> : null }
         {preshopView ?
           <PreshopView
             //User & info props
@@ -108,7 +108,7 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setPreshopView={setPreshopView}
-          /> : "" }
+          /> : null }
       </div>
     );
 }

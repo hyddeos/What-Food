@@ -9,6 +9,16 @@ export default function Dashboard(props) {
 
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
+let ingredientCount = []
+    props.chosenDishes.map((dish) => (
+        dish.ingredients.map(ingredient => (
+            ingredientCount.push(ingredient)
+        ))
+    ));
+
+
+
+
 
 return (
     <div>   
@@ -20,7 +30,7 @@ return (
             <ChoiceDiv 
                 title="Choose Dishes"
                 text="Pick dishes to eat"
-                color="bg-prim-300"
+                color="bg-sec-300"
                 loadView={props.setDishesView}
                 loadDashboard={props.setDashboardView}
                 dishesCount={dishesCount}
@@ -33,11 +43,13 @@ return (
                 loadView={props.setPreshopView}
                 loadDashboard={props.setDashboardView}
                 chosenDishes={props.chosenDishes}
+                ingredientsAtHome={props.ingredientsAtHome}
+                ingredientCount={ingredientCount}
             />
             <ChoiceDiv 
                 title="Shopping List"
                 text="Manage the shopping list"
-                color="bg-prim-300"
+                color="bg-sec-300"
                 loadView={props.setPreshopView}
                 loadDashboard={props.setDashboardView}
             />

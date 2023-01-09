@@ -31,7 +31,12 @@ return (
     `}> 
         <h3 className="text-stroke text-center align-middle">{props.title}</h3>
         <p className="text-blue-100 capitalize text-center align-middle font-thin">{props.text}</p>
-        <h4 className="text-stroke">{props.chosenDishesCount}/{props.dishesCount}</h4>
+        {props.dishesCount ? 
+            <h4 className="text-stroke">{props.chosenDishesCount}/{props.dishesCount}</h4>
+        : null }
+        {props.ingredientsAtHome ? 
+            <h4 className="text-stroke">{props.ingredientsAtHome.length}/{props.ingredientCount.length}</h4>
+        : null }
     </button>
 );
 }

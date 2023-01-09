@@ -12,9 +12,6 @@ export default function PreshopView(props) {
     const [selected, setSelected] = React.useState([])
     const [loadedPrev, setLoadedPrev] = React.useState(false)
 
-    console.log("PROPS Preshop", props)
-    console.log("athome", props.ingredientsAtHome)
-
     async function SaveDishes() {
         // Invert list (Save items that user Dont have at home)
         let dontHaveAtHome = []
