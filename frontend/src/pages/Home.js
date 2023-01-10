@@ -7,6 +7,7 @@ import axios from "axios";
 import Dashboard from '../components/Dashboard';
 import DishesView from '../components/DishesView';
 import PreshopView from '../components/PreshopView';
+import ShoppinglistView from '../components/ShoppinglistView';
 
 
 export default function Home(props) {
@@ -24,7 +25,7 @@ export default function Home(props) {
   const [dashboardView, setDashboardView] = React.useState(false);
   const [dishesView, setDishesView] = React.useState(false);
   const [preshopView, setPreshopView] = React.useState(false);
-  const [shoppinView, setshoppingView] = React.useState(false);
+  const [shoppinglistView, setShoppinglistView] = React.useState(false);
 
   // Redirect if NOT logged in
   let navigate = useNavigate();
@@ -71,7 +72,7 @@ export default function Home(props) {
     
   return (
       <div>
-        {dashboardView ? 
+        {dashboardView ?  // DASHBOARD-VIEW
           <Dashboard
             //User & info props
             family={family} 
@@ -84,8 +85,9 @@ export default function Home(props) {
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
             setPreshopView={setPreshopView}
+            setShoppinglistView={setShoppinglistView}
           /> : null }
-        {dishesView ? 
+        {dishesView ? // CHOSE DISHES-VIEW
           <DishesView
             //User & info props
             token={props.token}
@@ -97,7 +99,7 @@ export default function Home(props) {
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
           /> : null }
-        {preshopView ?
+        {preshopView ? // PRESHOP CHECK-VIEW
           <PreshopView
             //User & info props
             token={props.token}
@@ -108,6 +110,16 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setPreshopView={setPreshopView}
+          /> : null }
+        {shoppinglistView ? // SHOPPINGLIST-VIEW
+          <ShoppinglistView
+            //User & info props
+            token={props.token}
+            //List props
+            ingredientsAtHome={ingredientsAtHome}
+            //View props
+            setDashboardView={setDashboardView}
+            setShoppinglistView={setShoppinglistView}
           /> : null }
       </div>
     );

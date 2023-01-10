@@ -1,7 +1,8 @@
 export default function ChoiceDiv(props) {
-
-    function changeView(){
+    console.log("load", props) 
+    function changeView(){      
         props.loadView(true);
+        console.log("load", props)
         props.loadDashboard(false)
     }
 

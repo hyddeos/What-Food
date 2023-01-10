@@ -2,7 +2,7 @@ import React from 'react';
 
 import axios from "axios";
 
-import Button from '../components/Button';
+
 import BackButton from './BackButton';
 
 const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
