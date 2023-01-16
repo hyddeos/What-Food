@@ -135,14 +135,17 @@ def update_shoppinglist(request):
         # Get the users Family
         family = Family.objects.get(member=user.pk)
         current_shoppinglist = Shoppinglist.objects.get(family=family)
+        # Diffent incoming data, from various components / views
         preshop_ingredients =  request.get('preshop_ingredients')
         shoppinglist_ingredients = request.get('ingredients_added')
+        reset =  request.get('reset')
         # If request comes from Preshop-view
         if preshop_ingredients != None:
             ingredients = request['preshop_ingredients']
             # Update with the new list
             current_shoppinglist.ingredients.set(ingredients)
             current_shoppinglist.save()
+
         # If request comes from Shoppinglist-view
         elif shoppinglist_ingredients != None:
             ingredients_added = request['ingredients_added']
@@ -150,6 +153,17 @@ def update_shoppinglist(request):
             current_shoppinglist.ingredients_added.set(ingredients_added)
             current_shoppinglist.save()
         
+        # Reset all Dishes etc   
+        elif reset == 1:
+            # Chosen Dishes
+            current_dishes = Dishes_chosen.objects.get(family=family)
+            current_dishes.dishes_chosen.clear()
+            current_dishes.save()
+            # Preshop
+            current_shoppinglist.ingredients.clear()
+            # Shoppinglist
+            current_shoppinglist.ingredients_added.clear()
+            
         data = {
             "status": 200,           
         }

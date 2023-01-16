@@ -1,10 +1,10 @@
 export default function ChoiceDiv(props) {
+    
     function changeView(){      
         props.loadView(true);
         props.loadDashboard(false)
     }
-    console.log("how2", props)
-    console.log("how3", props.ingredientsInBasketCount)
+
 return (
     <button onClick={changeView} className={`
         flex flex-col justify-center items-center

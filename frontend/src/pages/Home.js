@@ -79,10 +79,14 @@ export default function Home(props) {
             //User & info props
             family={family} 
             username={username}
+            token={props.token}
             //List props
             dishes={dishes}
             chosenDishes={chosenDishes}
             ingredientsAtHome={ingredientsAtHome}
+            setChosenDishes={setChosenDishes}
+            setIngredientsAtHome={setIngredientsAtHome}
+            setIngredientsInBasket={setIngredientsInBasket}
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}

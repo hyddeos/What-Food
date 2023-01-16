@@ -110,11 +110,11 @@ export default function ShoppinglistView(props) {
     return (
         <div className='m-1 inline-block w-full text-center'>   
             <h2 className='font-bold'>Shoppinglist</h2>
-            <p className='my-2'>You have <span className='font-bold'> XXX </span> items to find</p>
+            <p className='my-2'>Find them and buy them!</p>
             <div className='w-80 bg-headline border-stroke border-2 rounded-lg m-auto my-2'>
                 {MyShoppinglist()}
             </div>
-            <h4 className='text-center'>You have found <span className='font-bold'>YYY</span> items</h4>
+            <h4 className='text-center'>You have found <span className='font-bold'>{selected.length}</span> items</h4>
             <div className='justify-center m-auto'>
                 <button onClick={SaveList} className="
                     inline-block
