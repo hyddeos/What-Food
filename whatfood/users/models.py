@@ -106,8 +106,8 @@ class Dishes_chosen(models.Model):
 
 class Shoppinglist(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, default=0)
-    ingredients = models.ManyToManyField(Ingredients, verbose_name=("Items on List"), blank=True)
-    ingredients_added = models.ManyToManyField(Ingredients, verbose_name=("Items added"), related_name=("Basket"), blank=True)
+    ingredients = models.ManyToManyField(Ingredients, verbose_name=("Items to shop"), blank=True)
+    ingredients_added = models.ManyToManyField(Ingredients, verbose_name=("Items in basket"), related_name=("Basket"), blank=True)
 
     def __str__(self) -> str:
         return f'pk: {self.pk}, fam: {self.family}'

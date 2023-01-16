@@ -13,17 +13,10 @@ export default function PreshopView(props) {
     const [loadedPrev, setLoadedPrev] = React.useState(false)
 
     async function SaveDishes() {
-        // Invert list (Save items that user Dont have at home)
-        let dontHaveAtHome = []
-        props.chosenDishes.map((dish) => (
-            dish.ingredients.map(ingredient => (
-                selected.includes(ingredient.id) ? null : dontHaveAtHome.push(ingredient.id)
-            ))
-        ));
 
         try {
             const response = await axios.post(baseURL, {
-            ingredients:dontHaveAtHome,
+            preshop_ingredients:selected,
             token:props.token
             }, {
             headers: {

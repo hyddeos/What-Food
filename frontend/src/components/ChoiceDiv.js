@@ -1,11 +1,10 @@
 export default function ChoiceDiv(props) {
-    console.log("load", props) 
     function changeView(){      
         props.loadView(true);
-        console.log("load", props)
         props.loadDashboard(false)
     }
-
+    console.log("how2", props)
+    console.log("how3", props.ingredientsInBasketCount)
 return (
     <button onClick={changeView} className={`
         flex flex-col justify-center items-center
@@ -32,11 +31,14 @@ return (
     `}> 
         <h3 className="text-stroke text-center align-middle">{props.title}</h3>
         <p className="text-blue-100 capitalize text-center align-middle font-thin">{props.text}</p>
-        {props.dishesCount ? 
+        {props.title == "Choose Dishes" ? 
             <h4 className="text-stroke">{props.chosenDishesCount}/{props.dishesCount}</h4>
         : null }
-        {props.ingredientsAtHome ? 
+        {props.title == "Preshop Check" ? 
             <h4 className="text-stroke">{props.ingredientsAtHome.length}/{props.ingredientCount.length}</h4>
+        : null }
+        {props.title == "Shopping List" ? 
+            <h4 className="text-stroke">{props.ingredientsInBasketCount}/{props.ingredientCount.length - props.ingredientsAtHome.length}</h4>
         : null }
     </button>
 );

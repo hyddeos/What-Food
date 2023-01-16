@@ -10,18 +10,18 @@ export default function Dashboard(props) {
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
 
+let ingredientsInBasketCount = Object.keys(props.chosenDishes).length
+console.log("how?", ingredientsInBasketCount)
 let ingredientCount = []
 let ingredientsAtHomeCount = []
 // Get the Count for the ingredientCount and add it into ingredientsAtHomeCount,
 const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
-console.log("athomIds", atHomeIds)
 props.chosenDishes.map((dish) => (
     dish.ingredients.map(ingredient => (
         ingredientCount.push(ingredient),
         atHomeIds.includes(ingredient.id) ? ingredientsAtHomeCount.push(ingredient) : null
     ))
 ));
-
 
 
 return (
@@ -36,10 +36,10 @@ return (
                 title="Choose Dishes"
                 text="Pick dishes to eat"
                 color="bg-sec-300"
-                // Data & props
-                name="dishes"
+                // View-props
                 loadView={props.setDishesView}
                 loadDashboard={props.setDashboardView}
+                // Data & props
                 dishesCount={dishesCount}
                 chosenDishesCount={chosenDishesCount}
             />
@@ -48,10 +48,10 @@ return (
                 title="Preshop Check"
                 text="Check what you have at home"
                 color="bg-sec-300"
-                // Data & props
-                name="preshop"
+                // View-props
                 loadView={props.setPreshopView}
                 loadDashboard={props.setDashboardView}
+                // Data & props
                 chosenDishes={props.chosenDishes}
                 ingredientsAtHome={props.ingredientsAtHome}
                 ingredientCount={ingredientCount}
@@ -61,10 +61,13 @@ return (
                 title="Shopping List"
                 text="Manage the shopping list"
                 color="bg-sec-300"
-                // Data & props
-                name="shoppinglist"
+                // View-props
                 loadView={props.setShoppinglistView}
                 loadDashboard={props.setDashboardView}
+                // Data & props
+                ingredientsAtHome={props.ingredientsAtHome}
+                ingredientCount={ingredientCount}
+                ingredientsInBasketCount={ingredientsInBasketCount}
             />
         </div>
         <div className='flex justify-center'>

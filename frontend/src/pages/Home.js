@@ -21,6 +21,8 @@ export default function Home(props) {
   const [chosenDishes, setChosenDishes] = React.useState([]);
   const [gotData, setGotData] = React.useState(false);
   const [ingredientsAtHome, setIngredientsAtHome] = React.useState([]);
+  const [ingredientsInBasket, setIngredientsInBasket] = React.useState([]);
+
   // Views
   const [dashboardView, setDashboardView] = React.useState(false);
   const [dishesView, setDishesView] = React.useState(false);
@@ -116,7 +118,10 @@ export default function Home(props) {
             //User & info props
             token={props.token}
             //List props
+            chosenDishes={chosenDishes}
             ingredientsAtHome={ingredientsAtHome}
+            ingredientsInBasket={ingredientsInBasket}
+            setIngredientsInBasket={setIngredientsInBasket}
             //View props
             setDashboardView={setDashboardView}
             setShoppinglistView={setShoppinglistView}

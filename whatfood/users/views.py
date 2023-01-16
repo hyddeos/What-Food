@@ -60,7 +60,9 @@ user_redirect_view = UserRedirectView.as_view()
 
 @csrf_exempt
 def loginUser(request):
-    """Log in the user"""
+    """
+    Log in the user
+    """
 
     if request.method == "POST":
         # Attempt to sign user in
@@ -87,7 +89,9 @@ def loginUser(request):
 
 @csrf_exempt
 def chosen_dishes(request):
-    """Save dishes that the user wants to eat"""
+    """
+    Save dishes that the user wants to eat
+    """
 
     if request.method == "POST":
         request = json.loads(request.body.decode('utf-8'))
@@ -119,21 +123,33 @@ def chosen_dishes(request):
 
 @csrf_exempt
 def update_shoppinglist(request):
-    """Update the items on the shopping list"""
+    """
+    Update the items on the shopping list
+    """
 
     if request.method == "POST":
         request = json.loads(request.body.decode('utf-8'))
-        ingredients = request['ingredients']
         token = request['token']
         # Get the user from the token
         user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
         # Get the users Family
         family = Family.objects.get(member=user.pk)
         current_shoppinglist = Shoppinglist.objects.get(family=family)
-        # Update with the new list
-        current_shoppinglist.ingredients.set(ingredients)
-        current_shoppinglist.save()
-
+        preshop_ingredients =  request.get('preshop_ingredients')
+        shoppinglist_ingredients = request.get('ingredients_added')
+        # If request comes from Preshop-view
+        if preshop_ingredients != None:
+            ingredients = request['preshop_ingredients']
+            # Update with the new list
+            current_shoppinglist.ingredients.set(ingredients)
+            current_shoppinglist.save()
+        # If request comes from Shoppinglist-view
+        elif shoppinglist_ingredients != None:
+            ingredients_added = request['ingredients_added']
+            # Update with the new list
+            current_shoppinglist.ingredients_added.set(ingredients_added)
+            current_shoppinglist.save()
+        
         data = {
             "status": 200,           
         }
