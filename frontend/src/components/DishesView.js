@@ -3,6 +3,7 @@ import React from 'react';
 import axios from "axios";
 
 import Button from '../components/Button';
+import SavedNotifier from './SavedNotifier';
 import BackButton from './BackButton';
 
 const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
@@ -11,6 +12,7 @@ export default function DishesView(props) {
 
     const [selected, setSelected] = React.useState([])
     const [loadedPrev, setLoadedPrev] = React.useState(false)
+    const [saved, setSaved] = React.useState(false)
 
     async function SaveDishes() {
         try {
@@ -27,6 +29,8 @@ export default function DishesView(props) {
             .then(response => {
                 // Set the chosen dishes 
                 UpdateChosenDishes();
+                // Show saved-info
+                setSaved(true);
             });
         } catch (error) {
             console.error(error);
@@ -122,6 +126,7 @@ export default function DishesView(props) {
                     Save</button>    
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setDishesView} />
             </div>
+            <SavedNotifier text="Saved!" saved={saved} setSaved={setSaved}/>
         </div>
     );
 }

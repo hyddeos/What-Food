@@ -58,7 +58,6 @@ export default function Home(props) {
       setDishes(response.data[0].get_dishes);
       setChosenDishes(response.data[0].get_chosen_dishes);
       setIngredientsAtHome(response.data[0].get_shoppinglist.ingredients);
-      console.log("Res", response.data)
     } catch (error) {
       // Handle the error
     }
@@ -74,7 +73,7 @@ export default function Home(props) {
     
   return (
       <div>
-        {dashboardView ?  // DASHBOARD-VIEW
+        {dashboardView &&  // DASHBOARD-VIEW
           <Dashboard
             //User & info props
             family={family} 
@@ -83,17 +82,18 @@ export default function Home(props) {
             //List props
             dishes={dishes}
             chosenDishes={chosenDishes}
-            ingredientsAtHome={ingredientsAtHome}
             setChosenDishes={setChosenDishes}
+            ingredientsAtHome={ingredientsAtHome}            
             setIngredientsAtHome={setIngredientsAtHome}
+            ingredientsInBasket={ingredientsInBasket}
             setIngredientsInBasket={setIngredientsInBasket}
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
             setPreshopView={setPreshopView}
             setShoppinglistView={setShoppinglistView}
-          /> : null }
-        {dishesView ? // CHOSE DISHES-VIEW
+          /> }
+        {dishesView && // CHOSE DISHES-VIEW
           <DishesView
             //User & info props
             token={props.token}
@@ -104,8 +104,8 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
-          /> : null }
-        {preshopView ? // PRESHOP CHECK-VIEW
+          /> }
+        {preshopView && // PRESHOP CHECK-VIEW
           <PreshopView
             //User & info props
             token={props.token}
@@ -116,8 +116,8 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setPreshopView={setPreshopView}
-          /> : null }
-        {shoppinglistView ? // SHOPPINGLIST-VIEW
+          /> }
+        {shoppinglistView && // SHOPPINGLIST-VIEW
           <ShoppinglistView
             //User & info props
             token={props.token}
@@ -129,7 +129,7 @@ export default function Home(props) {
             //View props
             setDashboardView={setDashboardView}
             setShoppinglistView={setShoppinglistView}
-          /> : null }
+          /> }
       </div>
     );
 }

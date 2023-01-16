@@ -3,6 +3,7 @@ import React from 'react';
 import axios from "axios";
 
 import BackButton from './BackButton';
+import SavedNotifier from './SavedNotifier';
 
 const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
 
@@ -11,6 +12,7 @@ export default function ShoppinglistView(props) {
     const [selected, setSelected] = React.useState([]);
     const [loadedPrev, setLoadedPrev] = React.useState(false);
     const [ingredients, setIngredients] = React.useState([]);
+    const [saved, setSaved] = React.useState(false)
 
 
     async function SaveList() {
@@ -28,6 +30,7 @@ export default function ShoppinglistView(props) {
             .then(response => {
                 // update the list clientsided 
                 UpdateShoppinglist();
+                setSaved(true);
             });
         } catch (error) {
             console.error(error);
@@ -140,6 +143,7 @@ export default function ShoppinglistView(props) {
                     Save</button>    
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setShoppinglistView} />
             </div>
+            <SavedNotifier text="Saved!" saved={saved} setSaved={setSaved} />
         </div>
     );
 }

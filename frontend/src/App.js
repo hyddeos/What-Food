@@ -13,7 +13,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const token = Cookies.get('token');
 
-  console.log("ct", token)
+  /*
   if (token) {
     // The token cookie exists, so the user is logged in.
     console.log("user has token")
@@ -21,7 +21,7 @@ function App() {
     // The token cookie does not exist, so the user is not logged in.
     console.log("user has not token")
   }
-
+  */
 
   return (
     <BrowserRouter>

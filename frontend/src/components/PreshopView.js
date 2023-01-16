@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 import BackButton from './BackButton';
+import SavedNotifier from './SavedNotifier';
 
 const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
 
@@ -11,6 +12,7 @@ export default function PreshopView(props) {
 
     const [selected, setSelected] = React.useState([])
     const [loadedPrev, setLoadedPrev] = React.useState(false)
+    const [saved, setSaved] = React.useState(false)
 
     async function SaveDishes() {
 
@@ -28,6 +30,7 @@ export default function PreshopView(props) {
             .then(response => {
                 // Update the ingredients
                 UpdateIngredients();
+                setSaved(true);
             });
         } catch (error) {
             console.error(error);
@@ -136,6 +139,7 @@ export default function PreshopView(props) {
                     Save</button>    
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setPreshopView} />
             </div>
+            <SavedNotifier text="Saved!" saved={saved} setSaved={setSaved}/>
         </div>
     );
 }

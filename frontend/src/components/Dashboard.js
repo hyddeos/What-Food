@@ -10,7 +10,7 @@ export default function Dashboard(props) {
 
 let dishesCount = Object.keys(props.dishes).length
 let chosenDishesCount = Object.keys(props.chosenDishes).length
-let ingredientsInBasketCount = Object.keys(props.chosenDishes).length
+let ingredientsInBasketCount = Object.keys(props.ingredientsInBasket).length
 let ingredientCount = []
 let ingredientsAtHomeCount = []
 // Get the Count for the ingredientCount and add it into ingredientsAtHomeCount,
