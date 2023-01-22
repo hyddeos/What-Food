@@ -10,9 +10,10 @@ const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
 
 export default function DishesView(props) {
 
-    const [selected, setSelected] = React.useState([])
-    const [loadedPrev, setLoadedPrev] = React.useState(false)
-    const [saved, setSaved] = React.useState(false)
+    const [selected, setSelected] = React.useState([]);
+    const [loadedPrev, setLoadedPrev] = React.useState(false);
+    const [saved, setSaved] = React.useState(false);
+
 
     async function SaveDishes() {
         try {
@@ -27,7 +28,7 @@ export default function DishesView(props) {
                 },
             })
             .then(response => {
-                // Set the chosen dishes 
+                // Set the chosen dishes and filter out other that is not included longer
                 UpdateChosenDishes();
                 // Show saved-info
                 setSaved(true);

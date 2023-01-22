@@ -8,19 +8,44 @@ const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
 
 export default function Dashboard(props) {
 
-let dishesCount = Object.keys(props.dishes).length
-let chosenDishesCount = Object.keys(props.chosenDishes).length
-let ingredientsInBasketCount = Object.keys(props.ingredientsInBasket).length
-let ingredientCount = []
-let ingredientsAtHomeCount = []
-// Get the Count for the ingredientCount and add it into ingredientsAtHomeCount,
-const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
-props.chosenDishes.map((dish) => (
-    dish.ingredients.map(ingredient => (
-        ingredientCount.push(ingredient),
-        atHomeIds.includes(ingredient.id) ? ingredientsAtHomeCount.push(ingredient) : null
-    ))
-));
+let dishesCount = Object.keys(props.dishes).length;
+let chosenDishesCount = Object.keys(props.chosenDishes).length;
+let ingredientCount = countIngredients();
+let ingredientsAtHomeCount = countIngredientsAtHome();
+let shoppinglistCount = ingredientsAtHomeCount - ingredientCount;
+let ingredientsInBasketCount = Object.keys(props.ingredientsInBasket).length;
+
+function countIngredients() {
+    // Count all ingredients from the Dishes for preshopping list
+    let counter = 0;
+    props.chosenDishes.map((dish) => (
+        dish.ingredients.map(ingredient => (
+            counter++
+        ))
+    ));
+    return counter
+}
+
+function countIngredientsAtHome() {
+    // Get at Home-ids
+    const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id);
+    let counter = 0;
+    // Get ingre for all the choosen dishes
+    props.chosenDishes.map((dish) => (
+        dish.ingredients.map(ingredient => (
+            atHomeIds.includes(ingredient.id) ? counter++ : null
+        ))
+    )); 
+    return counter
+}
+
+function countIngredientsInBasket() {
+    const basket = props.ingredientsInBasket.map(ingredient => ingredient.id)
+    // Fix this when shopplinglist works
+    
+    console.log("ingh", basket)
+}
+countIngredientsInBasket()
 
 async function resetLists(){
     try {
@@ -101,7 +126,7 @@ return (
                 loadDashboard={props.setDashboardView}
                 // Data & props
                 chosenDishes={props.chosenDishes}
-                ingredientsAtHome={props.ingredientsAtHome}
+                ingredientsAtHomeCount={ingredientsAtHomeCount}
                 ingredientCount={ingredientCount}
             />
             <ChoiceDiv // SHOPPING LIST
@@ -113,9 +138,10 @@ return (
                 loadView={props.setShoppinglistView}
                 loadDashboard={props.setDashboardView}
                 // Data & props
-                ingredientsAtHome={props.ingredientsAtHome}
+                ingredientsAtHomeCount={ingredientsAtHomeCount}
                 ingredientCount={ingredientCount}
                 ingredientsInBasketCount={ingredientsInBasketCount}
+                shoppinglistCount={shoppinglistCount}
             />
         </div>
     </div>

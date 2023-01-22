@@ -35,10 +35,10 @@ return (
             <h4 className="text-stroke">{props.chosenDishesCount}/{props.dishesCount}</h4>
         }
         {props.title == "Preshop Check" &&
-            <h4 className="text-stroke">{props.ingredientsAtHome.length}/{props.ingredientCount.length}</h4>
+            <h4 className="text-stroke">{props.ingredientsAtHomeCount}/{props.ingredientCount}</h4>
         }
         {props.title == "Shopping List" && 
-            <h4 className="text-stroke">{props.ingredientsInBasketCount}/{props.ingredientCount.length - props.ingredientsAtHome.length}</h4>
+            <h4 className="text-stroke">{props.ingredientsInBasketCount}/{props.ingredientCount - props.ingredientsAtHomeCount}</h4>
         }
     </button>
 );

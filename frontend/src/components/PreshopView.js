@@ -139,7 +139,7 @@ export default function PreshopView(props) {
                     Save</button>    
                 <BackButton text="Back" loadDashboard={props.setDashboardView} loadThisView={props.setPreshopView} />
             </div>
-            <SavedNotifier text="Saved!" saved={saved} setSaved={setSaved}/>
+            <SavedNotifier text="Saved!" saved={saved} setSaved={setSaved} />
         </div>
     );
 }

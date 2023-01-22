@@ -47,12 +47,16 @@ export default function Login(props) {
                 setResponse(200)
             }
             else {
+                console.log("ERROR")
                 setLoginMessage("Wrong Username or Password, try again");
                 setPassword("");
                 setResponse(400)
             }
           });        
         } catch (error) {
+          setLoginMessage("Wrong Username or Password, try again");
+          setPassword("");
+          setResponse(400)
           console.error(error);
         }
       }  

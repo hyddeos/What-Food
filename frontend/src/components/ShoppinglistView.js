@@ -13,7 +13,8 @@ export default function ShoppinglistView(props) {
     const [loadedPrev, setLoadedPrev] = React.useState(false);
     const [ingredients, setIngredients] = React.useState([]);
     const [saved, setSaved] = React.useState(false)
-
+    console.log("list", props)
+    console.log("sel", selected)
 
     async function SaveList() {
         try {
@@ -79,10 +80,11 @@ export default function ShoppinglistView(props) {
         if (!loadedPrev) {
             filterShoppinglist() // Filters out what already is at home.
             const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
+            console.log("at homes", atHomeIds)
             let temp = []
             props.chosenDishes.map((dish) => (
                 dish.ingredients.map(ingredient => (
-                    atHomeIds.includes(ingredient.id) ? temp.push(ingredient.id) : null
+                    atHomeIds.includes(ingredient.id) ? null : temp.push(ingredient.id)
                     ))
             ));
             setSelected(temp);

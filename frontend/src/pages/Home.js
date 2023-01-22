@@ -101,9 +101,14 @@ export default function Home(props) {
             dishes={dishes}
             chosenDishes={chosenDishes}
             setChosenDishes={setChosenDishes}
+            ingredientsAtHome={ingredientsAtHome}
+            setIngredientsAtHome={setIngredientsAtHome}
+            ingredientsInBasket={ingredientsInBasket}
+            setIngredientsInBasket={setIngredientsInBasket}
             //View props
             setDashboardView={setDashboardView}
             setDishesView={setDishesView}
+
           /> }
         {preshopView && // PRESHOP CHECK-VIEW
           <PreshopView
