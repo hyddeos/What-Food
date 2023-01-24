@@ -1,12 +1,11 @@
 import React from 'react';
 
 import axios from "axios";
-
+import { BASE_URL } from '../constants';
 
 import BackButton from './BackButton';
 import SavedNotifier from './SavedNotifier';
 
-const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
 
 export default function PreshopView(props) {
 
@@ -17,7 +16,7 @@ export default function PreshopView(props) {
     async function SaveDishes() {
 
         try {
-            const response = await axios.post(baseURL, {
+            const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
             preshop_ingredients:selected,
             token:props.token
             }, {

@@ -1,12 +1,10 @@
 import React from 'react';
 
 import axios from "axios";
-
+import { BASE_URL } from '../constants';
 import Button from '../components/Button';
 import SavedNotifier from './SavedNotifier';
 import BackButton from './BackButton';
-
-const baseURL = "http://127.0.0.1:8000/users/data/chosendishes/";
 
 export default function DishesView(props) {
 
@@ -17,7 +15,7 @@ export default function DishesView(props) {
 
     async function SaveDishes() {
         try {
-            const response = await axios.post(baseURL, {
+            const response = await axios.post(BASE_URL + "/users/data/chosendishes/", {
             dishes:selected,
             token:props.token
             }, {

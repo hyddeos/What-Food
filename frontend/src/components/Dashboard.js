@@ -3,8 +3,8 @@ import ChoiceDiv from '../components/ChoiceDiv';
 import Headertext from '../components/Headertext';
 import Button from '../components/Button';
 import axios from "axios";
+import { BASE_URL } from '../constants';
 
-const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
 
 export default function Dashboard(props) {
 
@@ -59,7 +59,7 @@ function countIngredientsInBasket() {
 
 async function resetLists(){
     try {
-        const response = await axios.post(baseURL, {
+        const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
         reset:1,
         token:props.token
         }, {

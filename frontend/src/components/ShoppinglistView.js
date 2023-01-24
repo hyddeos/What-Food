@@ -1,6 +1,7 @@
 import React from 'react';
 
 import axios from "axios";
+import { BASE_URL } from '../constants';
 
 import BackButton from './BackButton';
 import SavedNotifier from './SavedNotifier';
@@ -16,7 +17,7 @@ export default function ShoppinglistView(props) {
 
     async function SaveList() {
         try {
-            const response = await axios.post(baseURL, {
+            const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
             ingredients_added:selected,
             token:props.token
             }, {

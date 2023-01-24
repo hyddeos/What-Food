@@ -1,14 +1,10 @@
 import Button from '../components/Button';
 import Headertext from '../components/Headertext';
-
+import { BASE_URL } from '../constants';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
-
-
-const baseURL = "http://127.0.0.1:8000/auth-token/";
-
 
 export default function Login(props) {
 
@@ -29,7 +25,7 @@ export default function Login(props) {
     async function tryLogin(e) {
         e.preventDefault();
         try {
-          const response = await axios.post(baseURL, {
+          const response = await axios.post(BASE_URL + "/auth-token/", {
             username:username,
             password:password
           }, {

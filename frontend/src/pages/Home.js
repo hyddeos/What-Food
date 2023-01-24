@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from '../constants';
 
 import axios from "axios";
 
@@ -12,8 +13,6 @@ import ShoppinglistView from '../components/ShoppinglistView';
 
 export default function Home(props) {
 
-  // Const
-  const baseURL = `http://127.0.0.1:8000/api/users/`;
   // Varibles & Data
   const [username, setUsername] = React.useState("");
   const [family, setFamily] = React.useState("");
@@ -44,7 +43,7 @@ export default function Home(props) {
   // Get all the data for the User
   async function getData() {
     try {
-      const response = await axios.get(baseURL, {
+      const response = await axios.get(BASE_URL + "/api/users/", {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
