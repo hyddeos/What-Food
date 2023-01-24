@@ -13,8 +13,6 @@ export default function ShoppinglistView(props) {
     const [loadedPrev, setLoadedPrev] = React.useState(false);
     const [ingredients, setIngredients] = React.useState([]);
     const [saved, setSaved] = React.useState(false)
-    console.log("list", props)
-    console.log("sel", selected)
 
     async function SaveList() {
         try {
@@ -60,6 +58,7 @@ export default function ShoppinglistView(props) {
                 ))
         ));
         setIngredients(temp);
+        return temp;
     }
 
     function ingredientsClick(id) {
@@ -78,15 +77,12 @@ export default function ShoppinglistView(props) {
         // First time load already picked items.
         // Exclude the ingredients that is already at home.        
         if (!loadedPrev) {
-            filterShoppinglist() // Filters out what already is at home.
-            const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id)
-            console.log("at homes", atHomeIds)
+            const filterdShoppinglist = filterShoppinglist() // Filters out what already is at home.
+            const inBasketId = props.ingredientsInBasket.map(ingredient => ingredient.id)
             let temp = []
-            props.chosenDishes.map((dish) => (
-                dish.ingredients.map(ingredient => (
-                    atHomeIds.includes(ingredient.id) ? null : temp.push(ingredient.id)
-                    ))
-            ));
+            filterdShoppinglist.map((ingredient) => (
+                inBasketId.includes(ingredient.id) ? temp.push(ingredient.id) : null
+            ))
             setSelected(temp);
             setLoadedPrev(true);
         }

@@ -13,7 +13,7 @@ let chosenDishesCount = Object.keys(props.chosenDishes).length;
 let ingredientCount = countIngredients();
 let ingredientsAtHomeCount = countIngredientsAtHome();
 let shoppinglistCount = ingredientsAtHomeCount - ingredientCount;
-let ingredientsInBasketCount = Object.keys(props.ingredientsInBasket).length;
+let ingredientsInBasketCount = countIngredientsInBasket();
 
 function countIngredients() {
     // Count all ingredients from the Dishes for preshopping list
@@ -30,7 +30,7 @@ function countIngredientsAtHome() {
     // Get at Home-ids
     const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id);
     let counter = 0;
-    // Get ingre for all the choosen dishes
+    // Get ingredients for all the choosen dishes
     props.chosenDishes.map((dish) => (
         dish.ingredients.map(ingredient => (
             atHomeIds.includes(ingredient.id) ? counter++ : null
@@ -40,12 +40,22 @@ function countIngredientsAtHome() {
 }
 
 function countIngredientsInBasket() {
-    const basket = props.ingredientsInBasket.map(ingredient => ingredient.id)
-    // Fix this when shopplinglist works
-    
-    console.log("ingh", basket)
+    const basket = props.ingredientsInBasket.map(ingredient => ingredient.id);
+    const atHomeIds = props.ingredientsAtHome.map(ingredient => ingredient.id);    
+    const toShop = []
+    props.chosenDishes.map((dish) => (
+        dish.ingredients.map(ingredient => (
+            atHomeIds.includes(ingredient.id) ? null : toShop.push(ingredient.id)
+        ))
+    ));
+    // Compare the filterd out toShop ingreints with what is on the list and count it
+    let counter = 0;
+    toShop.map((id) => (
+        basket.includes(id) ? counter++ : null
+    ))    
+    return counter
 }
-countIngredientsInBasket()
+
 
 async function resetLists(){
     try {
