@@ -1,2 +1,2 @@
-export const BASE_URL = process.env.NODE_ENV === "production" ? "https://api.whatfood.eshtropy.se/" : "http://127.0.0.1:8000/";
+export const BASE_URL = process.env.NODE_ENV === "production" ? "https://apifood.eshtropy.se'/" : "http://127.0.0.1:8000/";
 export const FRONTEND_URL = process.env.NODE_ENV === "production" ? "https://whatfood.eshtropy.se" : "http://localhost:3000";

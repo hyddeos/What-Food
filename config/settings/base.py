@@ -309,12 +309,15 @@ CORS_ORIGIN_WHITELIST = [
         'http://localhost:3000',
         'https://whatfood.eshtropy.se',
         'http://whatfood.eshtropy.se',
+        'https://apifood.eshtropy.se',
+        'http://apifood.eshtropy.se',
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
         'http://localhost:3000',
         'http://127.0.0.1:8000',
         'https://whatfood.eshtropy.se',
-        'http://whatfood.eshtropy.se',      
+        'http://whatfood.eshtropy.se', 
+        'https://apifood.eshtropy.se'     
         ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -322,8 +325,8 @@ CSRF_TRUSTED_ORIGINS = [
         'http://127.0.0.1:8000',
         'https://whatfood.eshtropy.se',
         'http://whatfood.eshtropy.se',
-        'https://api.whatfood.eshtropy.se',
-        'http://api.whatfood.eshtropy.se',
+        'https://apifood.eshtropy.se',
+        'https://apifood.eshtropy.se',
     ]
 
 CORS_ALLOW_CREDENTIALS = True
