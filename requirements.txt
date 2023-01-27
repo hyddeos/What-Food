@@ -32,4 +32,4 @@ psycopg2-binary==2.9.4 # From to <-- psycopg2==2.9.5  # https://github.com/psyco
 django-anymail==8.6  # https://github.com/anymail/django-anymail
 
 #OWN 
-
+django-debug-toolbar==3.8.1
