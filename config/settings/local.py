@@ -1,6 +1,6 @@
 from .base import *  # noqa
 from .base import env
-
+print("Running local")
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug

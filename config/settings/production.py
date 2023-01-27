@@ -1,6 +1,6 @@
 from .base import *  # noqa
 from .base import env
-
+print("Running production")
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
