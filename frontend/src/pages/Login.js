@@ -12,6 +12,7 @@ export default function Login(props) {
     const [password, setPassword] = React.useState("");
     const [response, setResponse] = React.useState(0);
     const [loginMessage, setLoginMessage] = React.useState("");
+    const [loading, setLoading] = React.useState(false)
 
     // Redirect if allready logged in
     let navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function Login(props) {
     async function tryLogin(e) {
         e.preventDefault();
         try {
+          setLoading(true);
           const response = await axios.post(`${BASE_URL}/auth-token/`, {
             username:username,
             password:password
@@ -41,19 +43,22 @@ export default function Login(props) {
                 Cookies.set('token', jwt, { expires: 7 });
                 props.setLoggedIn(true);
                 setResponse(200)
+                
             }
             else {
                 console.log("ERROR")
                 setLoginMessage("Wrong Username or Password, try again");
                 setPassword("");
-                setResponse(400)
+                setResponse(400);
+                setLoading(false);
             }
           });        
         } catch (error) {
           setLoginMessage("Wrong Username or Password, try again");
           setPassword("");
-          setResponse(400)
+          setResponse(400);
           console.error(error);
+          setLoading(false);
         }
       }  
 
@@ -104,6 +109,7 @@ export default function Login(props) {
                     <div>
                         <Button type="submit" text="Login" /> 
                     </div>
+                    {loading && <p className=''>"Trying to login, Hold on.."</p> }
                     {response === 200 ? 
                         <p className='text-succes'>{loginMessage}</p>
                     :
