@@ -20,12 +20,12 @@ export default function Login(props) {
     return navigate("/home");
     }
     },[props.loggedIn]);
-    console.log("Baseurl", BASE_URL)
+    
     // Try to Login
     async function tryLogin(e) {
         e.preventDefault();
         try {
-          const response = await axios.post(BASE_URL + "/auth-token/", {
+          const response = await axios.post(`${BASE_URL}/auth-token/`, {
             username:username,
             password:password
           }, {
