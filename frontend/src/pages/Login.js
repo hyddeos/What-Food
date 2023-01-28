@@ -20,7 +20,7 @@ export default function Login(props) {
     return navigate("/home");
     }
     },[props.loggedIn]);
-
+    console.log("Baseurl", BASE_URL)
     // Try to Login
     async function tryLogin(e) {
         e.preventDefault();
