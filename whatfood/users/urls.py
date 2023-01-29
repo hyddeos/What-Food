@@ -6,7 +6,8 @@ from whatfood.users.views import (
     user_update_view,
     loginUser,
     chosen_dishes,
-    update_shoppinglist
+    update_shoppinglist,
+    add_dish,
 )
 
 app_name = "users"
@@ -16,5 +17,6 @@ urlpatterns = [
     path("~update/", view=user_update_view, name="update"),
     path("data/chosendishes/", view=chosen_dishes, name="choshen dishes"),
     path("data/shoppinglist/", view=update_shoppinglist, name="shoppinglist"),
+    path("data/adddish/", view=add_dish, name="add dish"),
     path("<str:username>/", view=user_detail_view, name="detail"),    
 ]

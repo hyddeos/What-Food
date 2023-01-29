@@ -65,7 +65,7 @@ export default function Login(props) {
     return (
         <section className='p2 flex justify-center bg-blue-900'>            
             <div className='m-10'>
-                <Headertext />
+                <Headertext  text="What Should We Eat Today!?"/>
                 <form onSubmit={tryLogin} className="my-6 text-center">
                     <h4 className='my-2 text-headline font-bold'>Be Kind To Login First</h4>
                     <label>

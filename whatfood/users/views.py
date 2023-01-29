@@ -175,4 +175,16 @@ def update_shoppinglist(request):
         }
         return JsonResponse(data)
 
+@csrf_exempt
+def add_dish(request):
+    
+    if request.method == "POST":
+        request = json.loads(request.body.decode('utf-8'))
+        token = request['token']
+        # Get the user from the token
+        user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
+        # Get the users Family
+        family = Family.objects.get(member=user.pk)
+        print(request)
+
     

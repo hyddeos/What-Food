@@ -16,7 +16,7 @@ export default function PreshopView(props) {
     async function SaveDishes() {
 
         try {
-            const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
+            const response = await axios.post(`${BASE_URL}/users/data/shoppinglist/`, {
             preshop_ingredients:selected,
             token:props.token
             }, {

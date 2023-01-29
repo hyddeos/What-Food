@@ -6,8 +6,6 @@ import { BASE_URL } from '../constants';
 import BackButton from './BackButton';
 import SavedNotifier from './SavedNotifier';
 
-const baseURL = "http://127.0.0.1:8000/users/data/shoppinglist/";
-
 export default function ShoppinglistView(props) {
 
     const [selected, setSelected] = React.useState([]);
@@ -17,7 +15,7 @@ export default function ShoppinglistView(props) {
 
     async function SaveList() {
         try {
-            const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
+            const response = await axios.post(`${BASE_URL}/users/data/shoppinglist/`, {
             ingredients_added:selected,
             token:props.token
             }, {

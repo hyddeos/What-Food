@@ -2,7 +2,6 @@ import React from 'react';
 
 import axios from "axios";
 import { BASE_URL } from '../constants';
-import Button from '../components/Button';
 import SavedNotifier from './SavedNotifier';
 import BackButton from './BackButton';
 
@@ -15,7 +14,7 @@ export default function DishesView(props) {
 
     async function SaveDishes() {
         try {
-            const response = await axios.post(BASE_URL + "/users/data/chosendishes/", {
+            const response = await axios.post(`${BASE_URL}/users/data/chosendishes/`, {
             dishes:selected,
             token:props.token
             }, {

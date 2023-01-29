@@ -59,7 +59,7 @@ function countIngredientsInBasket() {
 
 async function resetLists(){
     try {
-        const response = await axios.post(BASE_URL + "/users/data/shoppinglist/", {
+        const response = await axios.post(`${BASE_URL}/users/data/shoppinglist/`, {
         reset:1,
         token:props.token
         }, {
@@ -83,7 +83,7 @@ async function resetLists(){
 
 return (
     <div>   
-        <Headertext />
+        <Headertext  text="Dashboard"/>
         <div>
             <p className='text-center'>Hi <strong className='capitalize font-bold'>{props.username}</strong> of the <strong className='capitalize font-bold'>{props.family}</strong></p>
         </div>
@@ -110,8 +110,11 @@ return (
                 ease-in-out
                 text-stroke" 
                 >
-                Reset Lists
+                Rest lists
             </button>
+            <a href='/dishes'>
+                <Button text={"Edit Dishes"}/>
+            </a>
         </div>
         <div className='flex flex-wrap justify-center'>
             <ChoiceDiv // CHOSEN DISHES
