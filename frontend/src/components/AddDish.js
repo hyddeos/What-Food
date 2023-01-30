@@ -8,42 +8,57 @@ export default function AddDish(props) {
     const [addDishname, setAddDishname] = React.useState("")
     const [addIngredient, setAddIngredient] = React.useState("")
     const [addedIngredients, setAddedIngredients] = React.useState([])
+    const [errorInfo, setErrorInfo] = React.useState("")
 
     async function saveDish() {
-        try {
-            const response = await axios.post(`${BASE_URL}/users/data/adddish/`, {
-            token:props.token,
-            name:addDishname,
-            ingredients:addedIngredients,
-            }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Token' + props.token,
-                },
-            })
-            .then(response => {
-
-            });
-        } catch (error) {
-            console.error(error);
+        // Check so there is a dish name and at least one ingredient
+        if (addedIngredients && addDishname) {
+            // Remove Error-msg if there is one
+            setErrorInfo("")
+            try {
+                const response = await axios.post(`${BASE_URL}/users/data/adddish/`, {
+                token:props.token,
+                name:addDishname,
+                ingredients:addedIngredients,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Token' + props.token,
+                    },
+                })
+                .then(response => {
+    
+                });
+            } catch (error) {
+                console.error(error);
+            }
         }
+        else {
+            setErrorInfo("Oops!, The dish needs a name and at least one ingredent")
+        }
+
     }
     
     function addItem(e) {
-        e.preventDefault();        
-        setAddedIngredients([...addedIngredients, addIngredient]);
+        // Prevent reload 
+        e.preventDefault();
+
+        if (addIngredient.length > 0){
+            setAddedIngredients([...addedIngredients, addIngredient]);
+            setAddIngredient("");
+        }           
     } 
 
     function listIngredients() {
         return (
             <ul>
-            {addedIngredients.map((ingredient) => ( 
-                <li className='font-semibold cursor-pointer m-1 flex hover:bg-blue-50' >
-                    <p className='mx-1 text-stroke'>{ingredient}</p>
-                </li>
-            ))}
-        </ul>
+                {addedIngredients.map((ingredient, index) => ( 
+                    <li key={index} className='font-semibold cursor-pointer m-1 flex hover:bg-blue-50' >
+                        <p className='mx-1 text-stroke'>{ingredient}</p>
+                    </li>
+                ))}
+            </ul>
        )
     }
 
@@ -61,35 +76,37 @@ export default function AddDish(props) {
                     <label>
                         <p>Add ingredient </p>
                         <input autoFocus type="text" placeholder='Name of the ingredient' value={addIngredient} onChange={(e) => setAddIngredient(e.target.value)} ></input>
-                        <button>Add</button>
+                        {addIngredient && <button>Add</button>} 
                     </label>
                 </form>
             </div>
             <div>
+                <p>Ingredients added</p>
                 {listIngredients()}
             </div>
+            {errorInfo && <p className='text-error'>{errorInfo}</p>}
             <button onClick={saveDish} className="
-                    inline-block
-                    m-3 
-                    px-7
-                    py-3
-                    bg-prim-300
-                    font-bold
-                    text-lX
-                    leading-snug
-                    uppercase
-                    rounded
-                    shadow-md
-                    hover:bg-prim-200 
-                    hover:shadow-lg
-                    focus:outline-none
-                    focus:ring-0
-                    active:shadow-lg
-                    transition
-                    duration-300
-                    ease-in-out
-                    text-stroke" >
-                    Save Dish</button>    
+                inline-block
+                m-3 
+                px-7
+                py-3
+                bg-prim-300
+                font-bold
+                text-lX
+                leading-snug
+                uppercase
+                rounded
+                shadow-md
+                hover:bg-prim-200 
+                hover:shadow-lg
+                focus:outline-none
+                focus:ring-0
+                active:shadow-lg
+                transition
+                duration-300
+                ease-in-out
+                text-stroke" >
+                Save Dish</button>    
         </div>
     )
 }   

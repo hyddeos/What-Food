@@ -15,7 +15,7 @@ from django.http import JsonResponse # Added
 from rest_framework import status # Added
 from django.contrib.auth.decorators import login_required #Added
 
-from whatfood.users.models import Family, Dishes_chosen, Shoppinglist, User as CurrentUser
+from whatfood.users.models import Family, Dish, Ingredients, Dishes_chosen, Shoppinglist, User as CurrentUser
 
 User = get_user_model()
 
@@ -186,5 +186,30 @@ def add_dish(request):
         # Get the users Family
         family = Family.objects.get(member=user.pk)
         print(request)
+        # Get data about the dish
+        name, ingredients = request['name'], request['ingredients']
+        # Check if so there is data in them
+        if name and ingredients:
+            print("true")
+            newdish = Dish(name=name, creator=family)
+            newdish.save()
+            for ingredient in ingredients:
+                item = Ingredients(name=ingredient)
+                item.save()
+                newdish = Dish.objects.filter(name=name, creator=family).first()
+                newdish.ingredients.add(item)
+            print("new", newdish, newdish.ingredients)
+                
+
+            data = {"status": 200}
+            return JsonResponse(data)
+
+        else:
+            data = {"status": 400}
+            return JsonResponse(data)
+
+    
+    data = {"status": 400}
+    return JsonResponse(data)
 
     
