@@ -14,6 +14,7 @@ from rest_framework.authtoken.models import Token # Added
 from django.http import JsonResponse # Added 
 from rest_framework import status # Added
 from django.contrib.auth.decorators import login_required #Added
+from django.contrib.auth import logout
 
 from whatfood.users.models import Family, Dish, Ingredients, Dishes_chosen, Shoppinglist, User as CurrentUser
 
@@ -72,7 +73,6 @@ def loginUser(request):
 
         user = authenticate(username=username, password=password)
         if user != None:
-            print("User is logged in:", user)
             token = Token.objects.get(user=user)
             data = {
                 "status": 202,
@@ -86,6 +86,20 @@ def loginUser(request):
                 "status": 400,
             }
             return JsonResponse(data)
+
+@csrf_exempt
+def logoutUser(request):
+    """
+    Log out the user
+    """
+    if request.method == 'POST':
+        request = json.loads(request.body.decode('utf-8'))
+        # TA BORT TOKEN
+
+        print(request)
+        data = { "status": 200 }
+        return JsonResponse(data)
+
 
 @csrf_exempt
 def chosen_dishes(request):
@@ -177,7 +191,10 @@ def update_shoppinglist(request):
 
 @csrf_exempt
 def add_dish(request):
-    
+    """
+    When the user adding a new dish
+    """
+
     if request.method == "POST":
         request = json.loads(request.body.decode('utf-8'))
         token = request['token']
@@ -190,16 +207,15 @@ def add_dish(request):
         name, ingredients = request['name'], request['ingredients']
         # Check if so there is data in them
         if name and ingredients:
-            print("true")
             newdish = Dish(name=name, creator=family)
             newdish.save()
+            print("test",Dishes_chosen.objects.get(family=family))
+
             for ingredient in ingredients:
                 item = Ingredients(name=ingredient)
                 item.save()
                 newdish = Dish.objects.filter(name=name, creator=family).first()
-                newdish.ingredients.add(item)
-            print("new", newdish, newdish.ingredients)
-                
+                newdish.ingredients.add(item)              
 
             data = {"status": 200}
             return JsonResponse(data)

@@ -91,7 +91,7 @@ class Ingredients(models.Model):
 class Dish(models.Model):
     name =  models.CharField(max_length=78, verbose_name=("The Dish"))
     creator = models.ForeignKey(Family, verbose_name=("Dish Owner"), on_delete=models.CASCADE)
-    ingredients = models.ManyToManyField(Ingredients)
+    ingredients = models.ManyToManyField(Ingredients, )
 
     def __str__(self) -> str:
         return f'{self.pk}, {self.name}, {self.ingredients.values_list()}'

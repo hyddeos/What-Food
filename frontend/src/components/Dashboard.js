@@ -4,6 +4,7 @@ import Headertext from '../components/Headertext';
 import Button from '../components/Button';
 import axios from "axios";
 import { BASE_URL } from '../constants';
+import LougoutBtn from './LogoutBtn';
 
 
 export default function Dashboard(props) {
@@ -156,6 +157,9 @@ return (
                 ingredientsInBasketCount={ingredientsInBasketCount}
                 shoppinglistCount={shoppinglistCount}
             />
+        </div>
+        <div className='flex justify-center'>
+            <LougoutBtn token={props.token} setLoggedIn={props.setLoggedIn}/>
         </div>
     </div>
 );

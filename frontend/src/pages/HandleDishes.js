@@ -7,6 +7,7 @@ import axios from "axios";
 
 import Headertext from '../components/Headertext';
 import AddDish from '../components/AddDish';
+import BackButton from '../components/BackButton';
 
 
 export default function HandleDishes(props) {
@@ -15,7 +16,7 @@ export default function HandleDishes(props) {
   const [gotData, setGotData] = React.useState(false);
   const [family, setFamily] = React.useState("");
   const [dishes, setDishes] = React.useState([]);
-  const [addingDish, setAddingDishes] = React.useState(false);
+  const [addingDish, setAddingDish] = React.useState(false);
 
   // Get all the data for the User
   async function getData() {
@@ -27,7 +28,6 @@ export default function HandleDishes(props) {
           'Authorization': 'Token ' + props.token,
         },
       });
-      // Do something with the data from the protected endpoint
       const data = response.data;
       console.log("data", data)
       setFamily(response.data[0].get_family);
@@ -55,7 +55,7 @@ export default function HandleDishes(props) {
   }
 
   function addDish() {
-    setAddingDishes(true);
+    setAddingDish(true);
   }  
 
   return (
@@ -88,10 +88,12 @@ export default function HandleDishes(props) {
             </button>
         {addingDish &&          
           <div>
-            <AddDish token={props.token}/>
+            <AddDish token={props.token} setAddingDish={setAddingDish}/>
           </div>
         }
-
+        <a href='/'>
+          <BackButton text="Back"  />
+        </a>
     </div>
   )
 

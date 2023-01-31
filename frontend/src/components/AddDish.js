@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
+import BackButton from './BackButton';
+
 import { BASE_URL } from '../constants';
 
 export default function AddDish(props) {
@@ -12,7 +14,7 @@ export default function AddDish(props) {
 
     async function saveDish() {
         // Check so there is a dish name and at least one ingredient
-        if (addedIngredients && addDishname) {
+        if (addedIngredients.length && addDishname) {
             // Remove Error-msg if there is one
             setErrorInfo("")
             try {
@@ -28,7 +30,8 @@ export default function AddDish(props) {
                     },
                 })
                 .then(response => {
-    
+                    // Reload fo update with the new dish added.
+                    window.location.reload(false);
                 });
             } catch (error) {
                 console.error(error);
@@ -63,25 +66,55 @@ export default function AddDish(props) {
     }
 
     return (
-        <div>
+        <div className='m-1 inline-block w-full text-left'>
             <div>
             <form>
                 <label>
-                    <p>Dish Name</p>
+                    <p >Dish Name</p>
                     <input autoFocus type="text" placeholder='Name of the dish' value={addDishname} 
-                    onChange={(e) => setAddDishname(e.target.value)} ></input>
+                    onChange={(e) => setAddDishname(e.target.value)} 
+                    className="form-control
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border-4 border-solid border-blue-100
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-prim-300 focus:outline-none" /> 
                 </label>
             </form>
                 <form onSubmit={addItem}>
                     <label>
                         <p>Add ingredient </p>
-                        <input autoFocus type="text" placeholder='Name of the ingredient' value={addIngredient} onChange={(e) => setAddIngredient(e.target.value)} ></input>
+                        <input autoFocus type="text" placeholder='Name of the ingredient' value={addIngredient} onChange={(e) => setAddIngredient(e.target.value)} 
+                            className="form-control
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border-4 border-solid border-blue-100
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-prim-300 focus:outline-none" />
                         {addIngredient && <button>Add</button>} 
                     </label>
                 </form>
             </div>
             <div>
-                <p>Ingredients added</p>
+                <p className='text-left'>Ingredients added</p>
                 {listIngredients()}
             </div>
             {errorInfo && <p className='text-error'>{errorInfo}</p>}
@@ -106,7 +139,8 @@ export default function AddDish(props) {
                 duration-300
                 ease-in-out
                 text-stroke" >
-                Save Dish</button>    
+                Save Dish</button>
+                <BackButton text="Close" setAddingDish={props.setAddingDish} />
         </div>
     )
 }   

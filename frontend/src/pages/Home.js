@@ -78,6 +78,7 @@ export default function Home(props) {
             family={family} 
             username={username}
             token={props.token}
+            setLoggedIn={props.setLoggedIn}
             //List props
             dishes={dishes}
             chosenDishes={chosenDishes}

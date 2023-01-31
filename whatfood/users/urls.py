@@ -8,11 +8,13 @@ from whatfood.users.views import (
     chosen_dishes,
     update_shoppinglist,
     add_dish,
+    logoutUser,
 )
 
 app_name = "users"
 urlpatterns = [
     path("login/", view=loginUser, name="Login User"),
+    path("logout/", view=logoutUser, name="Logot User"),
     path("~redirect/", view=user_redirect_view, name="redirect"),
     path("~update/", view=user_update_view, name="update"),
     path("data/chosendishes/", view=chosen_dishes, name="choshen dishes"),
