@@ -1,13 +1,18 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants';
+import React from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
-export default function LougoutBtn(props) {
 
-    console.log("token:",props.token)
 
-    async function logoutUser() {
+export default function LogoutBtn(props) {
+
+    console.log("token:", props.token, props)
+
+    function logoutUser() {
         try {
-            const response = await axios.post(`${BASE_URL}/users/logout/`, {
+            const response = axios.post(`${BASE_URL}/users/logout/`, {
             token:props.token
             }, {
             headers: {
@@ -17,13 +22,17 @@ export default function LougoutBtn(props) {
                 },
             })
             .then(response => {
-                // update the list clientsided 
+                Cookies.remove('token');
                 props.setLoggedIn(false);
+                window.location.href = '/login';
+                console.log("Do this run?")
             });
         } catch (error) {
             console.error(error);
         }
     }
+
+    
 
 
     return (

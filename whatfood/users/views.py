@@ -94,9 +94,9 @@ def logoutUser(request):
     """
     if request.method == 'POST':
         request = json.loads(request.body.decode('utf-8'))
-        # TA BORT TOKEN
+        # Delete Token
+        Token.objects.get(key=request['token']).delete()
 
-        print(request)
         data = { "status": 200 }
         return JsonResponse(data)
 

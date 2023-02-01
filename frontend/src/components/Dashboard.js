@@ -4,7 +4,7 @@ import Headertext from '../components/Headertext';
 import Button from '../components/Button';
 import axios from "axios";
 import { BASE_URL } from '../constants';
-import LougoutBtn from './LogoutBtn';
+import LogoutBtn from './LogoutBtn';
 
 
 export default function Dashboard(props) {
@@ -15,6 +15,8 @@ let ingredientCount = countIngredients();
 let ingredientsAtHomeCount = countIngredientsAtHome();
 let shoppinglistCount = ingredientsAtHomeCount - ingredientCount;
 let ingredientsInBasketCount = countIngredientsInBasket();
+
+console.log("p1", props)
 
 function countIngredients() {
     // Count all ingredients from the Dishes for preshopping list
@@ -111,7 +113,7 @@ return (
                 ease-in-out
                 text-stroke" 
                 >
-                Rest lists
+                Reset lists
             </button>
             <a href='/dishes'>
                 <Button text={"Edit Dishes"}/>
@@ -159,7 +161,7 @@ return (
             />
         </div>
         <div className='flex justify-center'>
-            <LougoutBtn token={props.token} setLoggedIn={props.setLoggedIn}/>
+            <LogoutBtn token={props.token} setLoggedIn={props.setLoggedIn} />
         </div>
     </div>
 );
