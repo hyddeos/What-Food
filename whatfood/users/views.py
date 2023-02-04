@@ -56,7 +56,6 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self):
         return reverse("users:detail", kwargs={"username": self.request.user.username})
 
-
 user_redirect_view = UserRedirectView.as_view()
 
 @csrf_exempt
@@ -72,6 +71,7 @@ def loginUser(request):
         password = request['password']['password']
 
         user = authenticate(username=username, password=password)
+
         if user != None:
             token = Token.objects.get(user=user)
             data = {
@@ -81,7 +81,6 @@ def loginUser(request):
             }
             return JsonResponse(data)
         else:
-            print("loggin failed")
             data = {
                 "status": 400,
             }
@@ -95,10 +94,15 @@ def logoutUser(request):
     if request.method == 'POST':
         request = json.loads(request.body.decode('utf-8'))
         # Delete Token
-        Token.objects.get(key=request['token']).delete()
-
-        data = { "status": 200 }
+        if request['token']:
+            Token.objects.get(key=request['token']).delete()
+            data = { "status": 200 }
+            return JsonResponse(data)
+        
+        data = { "status": 400 }
         return JsonResponse(data)
+
+        
 
 
 @csrf_exempt
@@ -119,10 +123,6 @@ def chosen_dishes(request):
         # Update with the new list
         current_dishes.dishes_chosen.set(dishes)
         current_dishes.save()
-
-        """ LATER ADD THAT Dishes_chosen automaticly gets an input
-            when family is created
-        """
 
         data = {
             "status": 200,           

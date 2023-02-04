@@ -65,8 +65,12 @@ export default function AddDish(props) {
        )
     }
 
+    function closeAddDish() {
+        props.setAddingDish(false);
+    }
+
     return (
-        <div className='m-1 inline-block w-full text-left'>
+        <div className='m-auto inline-block w-full text-left'>
             <div>
             <form>
                 <label>
@@ -140,7 +144,29 @@ export default function AddDish(props) {
                 ease-in-out
                 text-stroke" >
                 Save Dish</button>
-                <BackButton text="Close" setAddingDish={props.setAddingDish} />
+                <button onClick={closeAddDish} className="
+                    inline-block
+                    m-3 
+                    px-7
+                    py-1
+                    bg-sec-300
+                    font-bold
+                    text-lX
+                    leading-snug
+                    uppercase
+                    rounded
+                    shadow-md
+                    hover:bg-sec-200 
+                    hover:shadow-lg
+                    focus:outline-none
+                    focus:ring-0
+                    active:shadow-lg
+                    transition
+                    duration-300
+                    ease-in-out
+                    text-stroke" >
+                    Close
+                </button>
         </div>
     )
 }   

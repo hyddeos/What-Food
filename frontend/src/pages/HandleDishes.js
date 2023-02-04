@@ -42,11 +42,8 @@ export default function HandleDishes(props) {
   React.useEffect(() => {
   if (!props.token){
     return navigate("/login");
-  }
-  else {
-    props.setLoggedIn(true);
-  }
-  },[props.loggedIn]);
+  }}
+  );
 
   // Make API-request if it has not been made already
   if (!gotData) {
@@ -59,10 +56,16 @@ export default function HandleDishes(props) {
   }  
 
   return (
-    <div  className='m-1 inline-block w-full'>
+    <div  className='m-1 inline-block w-full '>
       <Headertext  text="Manage Dishes"/>
       TEST: {family},
-      <button onClick={addDish} type="submit" className="
+      {addingDish ?           
+        <div className='inline-block max-w-lg' >
+            <AddDish token={props.token} setAddingDish={setAddingDish}/>
+        </div>
+      :
+      <>
+        <button onClick={addDish} type="submit" className="
                 inline-block
                 m-3 
                 px-7
@@ -82,18 +85,14 @@ export default function HandleDishes(props) {
                 transition
                 duration-300
                 ease-in-out
-                text-stroke" 
-                >
+                text-stroke">
                 Add Dish
-            </button>
-        {addingDish &&          
-          <div>
-            <AddDish token={props.token} setAddingDish={setAddingDish}/>
-          </div>
-        }
+        </button>
         <a href='/'>
           <BackButton text="Back"  />
         </a>
+      </>
+      }
     </div>
   )
 
