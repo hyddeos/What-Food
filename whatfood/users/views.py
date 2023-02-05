@@ -202,14 +202,12 @@ def add_dish(request):
         user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
         # Get the users Family
         family = Family.objects.get(member=user.pk)
-        print(request)
         # Get data about the dish
         name, ingredients = request['name'], request['ingredients']
         # Check if so there is data in them
         if name and ingredients:
             newdish = Dish(name=name, creator=family)
             newdish.save()
-            print("test",Dishes_chosen.objects.get(family=family))
 
             for ingredient in ingredients:
                 item = Ingredients(name=ingredient)
@@ -228,4 +226,38 @@ def add_dish(request):
     data = {"status": 400}
     return JsonResponse(data)
 
+
+@csrf_exempt
+def remove_dish(request):
+    """
+    When the user removing
+    """
+
+    if request.method == "POST":
+        request = json.loads(request.body.decode('utf-8'))
+        token = request['token']
+        # Get the user from the token
+        user = CurrentUser.objects.get(username=Token.objects.get(key=token).user)
+
+        print("rq",request)
+        # Get id for the dish to be removed
+        dish_id = request['dishId']
+        print("id", dish_id)
+        # Check if so there is data in them
+        if dish_id and user:
+            remove_dish = Dish.objects.get(pk=dish_id)
+            print("remove", remove_dish)
+            remove_dish.delete()
+       
+
+            data = {"status": 200}
+            return JsonResponse(data)
+
+        else:
+            data = {"status": 400}
+            return JsonResponse(data)
+
+    
+    data = {"status": 400}
+    return JsonResponse(data)
     

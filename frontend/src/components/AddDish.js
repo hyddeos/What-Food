@@ -51,14 +51,22 @@ export default function AddDish(props) {
             setAddedIngredients([...addedIngredients, addIngredient]);
             setAddIngredient("");
         }           
-    } 
+    }
+
+    const removeItem = (index) => {
+        setAddedIngredients(prevIngredients => {
+          return prevIngredients.filter((ingredient, i) => i !== index);
+        });
+      };
+
 
     function listIngredients() {
         return (
             <ul>
                 {addedIngredients.map((ingredient, index) => ( 
-                    <li key={index} className='font-semibold cursor-pointer m-1 flex hover:bg-blue-50' >
-                        <p className='mx-1 text-stroke'>{ingredient}</p>
+                    <li key={index}  onClick={() => removeItem(index)}
+                        className="hover:after:content-['\00a0\00a0Remove'] hover:text-error font-semibold cursor-pointer m-1 flex hover:bg-blue-50 " >
+                        <p className="mx-1 text-stroke">{ingredient}</p>
                     </li>
                 ))}
             </ul>
@@ -70,11 +78,12 @@ export default function AddDish(props) {
     }
 
     return (
-        <div className='m-auto inline-block w-full text-left'>
+        <div className='m-auto inline-block w-full text-left bg-blue-100 rounded-md p-2'>
             <div>
+                <h4 className='font-bold text-stroke mx-1'>Add a New Dish</h4>
             <form>
                 <label>
-                    <p >Dish Name</p>
+                    <p className='text-stroke mx-1'>Dish Name</p>
                     <input autoFocus type="text" placeholder='Name of the dish' value={addDishname} 
                     onChange={(e) => setAddDishname(e.target.value)} 
                     className="form-control
@@ -96,7 +105,8 @@ export default function AddDish(props) {
             </form>
                 <form onSubmit={addItem}>
                     <label>
-                        <p>Add ingredient </p>
+                        <p className='text-stroke mx-1'>Add ingredient </p>
+                        <div className='flex'>
                         <input autoFocus type="text" placeholder='Name of the ingredient' value={addIngredient} onChange={(e) => setAddIngredient(e.target.value)} 
                             className="form-control
                             block
@@ -113,12 +123,35 @@ export default function AddDish(props) {
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-prim-300 focus:outline-none" />
-                        {addIngredient && <button>Add</button>} 
+                        {addIngredient && <button className='                
+                            inline-block
+                            w-full
+                            m-1
+                            bg-prim-300
+                            font-bold
+                            text-lX
+                            leading-snug
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-prim-200 
+                            hover:shadow-lg
+                            focus:outline-none
+                            focus:ring-0
+                            active:shadow-lg
+                            transition
+                            duration-300
+                            ease-in-out
+                            text-stroke"'>
+                            Add</button>} 
+                        </div>
+
+
                     </label>
                 </form>
             </div>
             <div>
-                <p className='text-left'>Ingredients added</p>
+                <p className='text-left text-stroke mx-1'>Ingredients added</p>
                 {listIngredients()}
             </div>
             {errorInfo && <p className='text-error'>{errorInfo}</p>}
