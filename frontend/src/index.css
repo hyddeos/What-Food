@@ -1,0 +1,28 @@
+@tailwind base;
+@layer base {
+  h1 {
+    @apply text-5xl;
+    @apply text-headline;
+  }
+  h2 {
+    @apply text-3xl;
+    @apply text-headline;
+  }
+  h3 {
+    @apply text-2xl;
+    @apply text-headline;
+  }
+  h4 {
+    @apply text-xl;
+    @apply text-sec-300;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+  p {
+    @apply text-sec-300;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
