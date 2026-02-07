@@ -78,6 +78,7 @@ EMAIL_SUBJECT_PREFIX = env(
 # Django Admin URL regex.
 ADMIN_URL = env("DJANGO_ADMIN_URL")
 
+"""
 # Anymail
 # ------------------------------------------------------------------------------
 # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
@@ -87,6 +88,7 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://anymail.readthedocs.io/en/stable/esps
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ANYMAIL = {}
+"""
 
 
 # LOGGING
